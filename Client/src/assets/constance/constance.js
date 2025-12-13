@@ -30,7 +30,7 @@ import filter_icon from "../images/filter_icon.svg";
 import edit_icon from "../images/edit_icon.svg";
 import calendar_icon_colored from "../images/calendar_icon_colored.svg";
 import location_icon_colored from "../images/location_icon_colored.svg";
-
+import testimonials_image_1 from "../images/testimonial_image_1.png";
 import testimonial_image_2 from "../images/testimonial_image_2.png";
 import main_car from "../images/main_car.png";
 import banner_car_image from "../images/banner_car_image.png";
@@ -85,6 +85,7 @@ export const assets = {
     eye_close_icon,
     filter_icon,
     testimonial_image_2,
+    testimonials_image_1,
     main_car,
     banner_car_image,
     car_image1,
@@ -210,5 +211,14 @@ export const dummyCarData = [
         "createdAt": "2025-04-17T06:15:47.318Z",
     }
 ];
+
+ export  const testimonials = [
+        { id: 1, name: "Emma Rodriguez", location: "Barcelona, Spain", image:assets.testimonial_image_2, rating: 5, testimonial: "Exceptional service and attention to detail. Everything was handled professionally and efficiently from start to finish. Highly recommended!" },
+        { id: 2, name: "Liam Johnson", location: "New York, USA", image: assets.testimonials_image_1, rating: 4, testimonial: "I’m truly impressed by the quality and consistency. The entire process was smooth, and the results exceeded all expectations. Thank you!" },
+        { id: 3, name: "Sophia Lee", location: "Seoul, South Korea", image: assets.testimonial_image_2, rating: 5, testimonial: "Fantastic experience! From start to finish, the team was professional, responsive, and genuinely cared about delivering great results." }
+    ];
+
+ 
+
 
 
