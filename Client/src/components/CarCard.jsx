@@ -7,10 +7,11 @@ const CarCard = ({ car }) => {
   const navigate = useNavigate();
 
   return (
-    <div
-      onClick={() => navigate(`/car-details/${car._id}`)}
-      className="bg-white group rounded-xl shadow-md hover:shadow-lg transition-all duration-500 hover:-translate-y-1 overflow-hidden cursor-pointer"
-    >
+  <div
+  onClick={() => navigate(`/car-details/${car._id}`)}
+  className="bg-white group rounded-xl shadow-md hover:shadow-lg transition-all duration-500 hover:-translate-y-1 overflow-hidden cursor-pointer"
+>
+
       {/* Image */}
       <div className="relative">
         <img
