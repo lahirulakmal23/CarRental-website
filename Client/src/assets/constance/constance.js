@@ -105,6 +105,45 @@ export const cityList = [
     "Chennai",
 ]
 
+export const dummyBookingData  =[
+  {
+  id: 1,
+  car: {
+    name: "BMW M4 COMPETITION",
+    year: 2022,
+    type: "SUV",
+    location: "Los Angeles",
+    image: "https://images.unsplash.com/photo-1603386329225-868f9b1ee6c9"
+  },
+  bookingId: "#1",
+  status: "confirmed",
+  rentalPeriod: "4/10/2025 - 4/15/2025",
+  pickupLocation: "Airport Terminal",
+  returnLocation: "Downtown Office",
+  totalPrice: 475,
+  bookedOn: "4/1/2025"
+},
+
+  {
+  id: 1,
+  car: {
+    name: "BMW M4 COMPETITION",
+    year: 2022,
+    type: "SUV",
+    location: "Los Angeles",
+    image: "https://images.unsplash.com/photo-1603386329225-868f9b1ee6c9"
+  },
+  bookingId: "#1",
+  status: "confirmed",
+  rentalPeriod: "4/10/2025 - 4/15/2025",
+  pickupLocation: "Airport Terminal",
+  returnLocation: "Downtown Office",
+  totalPrice: 475,
+  bookedOn: "4/1/2025"
+}
+
+]
+
 export const cars = [
   {
     id: 1,
@@ -147,7 +186,7 @@ export const dummyCarData = [
         "owner": "67fe3467ed8a8fe17d0ba6e2",
         "brand": "BMW",
         "model": "X5",
-         "image": "https://images.unsplash.com/photo-1619767886558-efdc259cde1a",
+        "image": "https://images.unsplash.com/photo-1619767886558-efdc259cde1a",
         "year": 2006,
         "category": "SUV",
         "seating_capacity": 4,
@@ -217,6 +256,34 @@ export const dummyCarData = [
         { id: 2, name: "Liam Johnson", location: "New York, USA", image: assets.testimonials_image_1, rating: 4, testimonial: "I’m truly impressed by the quality and consistency. The entire process was smooth, and the results exceeded all expectations. Thank you!" },
         { id: 3, name: "Sophia Lee", location: "Seoul, South Korea", image: assets.testimonial_image_2, rating: 5, testimonial: "Fantastic experience! From start to finish, the team was professional, responsive, and genuinely cared about delivering great results." }
     ];
+
+
+// Dummy user data
+export const dummyUserData = {
+  "_id": "6847f7cab3d8daecdb517095",
+  "name": "GreatStack",
+  "email": "admin@example.com",
+  "role": "owner",
+  "image": user_profile,
+}
+export const dummyDashboardData = {
+    "totalCars": 4,
+    "totalBookings": 2,
+    "pendingBookings": 0,
+    "completedBookings": 2,
+    "recentBookings": [
+        dummyBookingData[0],
+        dummyBookingData[1]
+    ],
+    "monthlyRevenue": 840
+}
+
+export const ownerMenuLinks = [
+    { name: "Dashboard", path: "/owner", icon: dashboardIcon, coloredIcon: dashboardIconColored },
+    { name: "Add car", path: "/owner/add-car", icon: addIcon, coloredIcon: addIconColored },
+    { name: "Manage Cars", path: "/owner/manage-cars", icon: carIcon, coloredIcon: carIconColored },
+    { name: "Manage Bookings", path: "/owner/manage-bookings", icon: listIcon, coloredIcon: listIconColored },
+]
 
  
 
