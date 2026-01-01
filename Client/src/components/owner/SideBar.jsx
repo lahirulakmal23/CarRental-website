@@ -61,11 +61,11 @@ const SideBar = () => {
           <NavLink
             key={index}
             to={item.path}
-            className={`flex items-center gap-3 px-4 py-2 transition
+            className={`flex items-center gap-3 px-4 py-2 mb-2 transition  
               ${
                 location.pathname === item.path
-                  ? "bg-gray-200 font-semibold"
-                  : "hover:bg-gray-100"
+                  ? "bg-primary/10 text-primary   font-semibold"
+                  : "hover:bg-primary/10 text-gray-600 "
               }`}
           >
             <img src={item.icon} alt={item.name} className="w-5 h-5" />

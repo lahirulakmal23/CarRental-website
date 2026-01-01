@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { dummyBookingData,assets } from "../assets/constance/constance";
+import { dummyMyBookingsData } from "../assets/constance/constance";
 
 const Mybooking = () => {
   const [booking, setBooking] = useState([]);
 
   useEffect(() => {
-    setBooking(dummyBookingData);
+    setBooking(dummyMyBookingsData);
   }, []);
 
   return (
@@ -23,7 +23,7 @@ const Mybooking = () => {
         {booking.map((item) => (
           <div
             key={item.id}
-            className="bg-white border rounded-lg p-5 flex flex-col lg:flex-row gap-6"
+            className="bg-white border border-gray-300 rounded-lg p-5 flex flex-col lg:flex-row gap-6"
           >
             {/* IMAGE */}
             <img
@@ -38,7 +38,7 @@ const Mybooking = () => {
                 {item.car.name}
               </h2>
               <p className="text-sm text-gray-500 mb-4">
-                {item.car.year} · {item.car.type} · {item.car.location}
+                {item.car.year} · {item.car.brand} · {item.car.model}
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
@@ -52,27 +52,27 @@ const Mybooking = () => {
                 </p>
 
                 <p>
-                  <span className="font-medium">Rental Period:</span>{" "}
-                  {item.rentalPeriod}
+                  <span className="font-medium">PickupDate:</span>
+                  {item.pickupDate}
                 </p>
 
                 <p>
-                  <span className="font-medium">Pick-up Location:</span>{" "}
-                  {item.pickupLocation}
+                  <span className="font-medium">ReturnDate:</span>
+                  {item.location}
                 </p>
 
                 <p>
-                  <span className="font-medium">Return Location:</span>{" "}
-                  {item.returnLocation}
+                  <span className="font-medium">Return Location:</span>
+                  {item.returnDate}
                 </p>
               </div>
             </div>
 
             {/* PRICE */}
             <div className="text-right min-w-[150px]">
-              <p className="text-sm text-gray-500">Total Price</p>
+              <p className="text-sm text-gray-500 font-semibold">Total Price</p>
               <p className="text-xl font-bold text-blue-600">
-                ${item.totalPrice}
+                ${item.price}
               </p>
               <p className="text-xs text-gray-400 mt-2">
                 Booked on {item.bookedOn}

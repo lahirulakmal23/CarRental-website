@@ -105,44 +105,6 @@ export const cityList = [
     "Chennai",
 ]
 
-export const dummyBookingData  =[
-  {
-  id: 1,
-  car: {
-    name: "BMW M4 COMPETITION",
-    year: 2022,
-    type: "SUV",
-    location: "Los Angeles",
-    image: "https://images.unsplash.com/photo-1603386329225-868f9b1ee6c9"
-  },
-  bookingId: "#1",
-  status: "confirmed",
-  rentalPeriod: "4/10/2025 - 4/15/2025",
-  pickupLocation: "Airport Terminal",
-  returnLocation: "Downtown Office",
-  totalPrice: 475,
-  bookedOn: "4/1/2025"
-},
-
-  {
-  id: 1,
-  car: {
-    name: "BMW M4 COMPETITION",
-    year: 2022,
-    type: "SUV",
-    location: "Los Angeles",
-    image: "https://images.unsplash.com/photo-1603386329225-868f9b1ee6c9"
-  },
-  bookingId: "#1",
-  status: "confirmed",
-  rentalPeriod: "4/10/2025 - 4/15/2025",
-  pickupLocation: "Airport Terminal",
-  returnLocation: "Downtown Office",
-  totalPrice: 475,
-  bookedOn: "4/1/2025"
-}
-
-]
 
 export const cars = [
   {
@@ -266,17 +228,8 @@ export const dummyUserData = {
   "role": "owner",
   "image": user_profile,
 }
-export const dummyDashboardData = {
-    "totalCars": 4,
-    "totalBookings": 2,
-    "pendingBookings": 0,
-    "completedBookings": 2,
-    "recentBookings": [
-        dummyBookingData[0],
-        dummyBookingData[1]
-    ],
-    "monthlyRevenue": 840
-}
+
+
 
 export const ownerMenuLinks = [
     { name: "Dashboard", path: "/owner", icon: dashboardIcon, coloredIcon: dashboardIconColored },
@@ -285,7 +238,66 @@ export const ownerMenuLinks = [
     { name: "Manage Bookings", path: "/owner/manage-bookings", icon: listIcon, coloredIcon: listIconColored },
 ]
 
+export const dummyMyBookingsData = [
+    {
+        "_id": "68482bcc98eb9722b7751f70",
+        "car": dummyCarData[0],
+        "user": "6847f7cab3d8daecdb517095",
+        "owner": "6847f7cab3d8daecdb517095",
+        "pickupDate": "2025-06-13",
+        "returnDate": "2025-06-14",
+        "status": "confirmed",
+        "price": 440,
+        "createdAt": "2025-06-10T12:57:48.244Z",
+    },
+    {
+        "_id": "68482bb598eb9722b7751f60",
+        "car": dummyCarData[1],
+        "user": "6847f7cab3d8daecdb517095",
+        "owner": "67fe3467ed8a8fe17d0ba6e2",
+        "pickupDate": "2025-06-12",
+        "returnDate": "2025-06-12",
+        "status": "pending",
+        "price": 130,
+        "createdAt": "2025-06-10T12:57:25.613Z",
+    },
+    {
+        "_id": "684800fa0fb481c5cfd92e56",
+        "car": dummyCarData[2],
+        "user": "6847f7cab3d8daecdb517095",
+        "owner": "67fe3467ed8a8fe17d0ba6e2",
+        "pickupDate": "2025-06-11",
+        "returnDate": "2025-06-12",
+        "status": "pending",
+        "price": 600,
+        "createdAt": "2025-06-10T09:55:06.379Z",
+    },
+    {
+        "_id": "6847fe790fb481c5cfd92d94",
+        "car": dummyCarData[3],
+        "user": "6847f7cab3d8daecdb517095",
+        "owner": "6847f7cab3d8daecdb517095",
+        "pickupDate": "2025-06-11",
+        "returnDate": "2025-06-12",
+        "status": "confirmed",
+        "price": 440,
+        "createdAt": "2025-06-10T09:44:25.410Z",
+    }
+]
+
+export const dummyDashboardData = {
+  totalCars: 4,
+  totalBooking: 2,
+  pendingBooking: 0,
+  completeBooking: 2,
+  recentBooking: [
+    dummyMyBookingsData[0],
+    dummyMyBookingsData[1],
+  ],
+  monthlyRevenue: 840,
+};
  
+
 
 
 
