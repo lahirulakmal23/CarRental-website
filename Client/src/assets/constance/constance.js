@@ -105,6 +105,7 @@ export const cityList = [
     "Chennai",
 ]
 
+
 export const cars = [
   {
     id: 1,
@@ -147,7 +148,7 @@ export const dummyCarData = [
         "owner": "67fe3467ed8a8fe17d0ba6e2",
         "brand": "BMW",
         "model": "X5",
-         "image": "https://images.unsplash.com/photo-1619767886558-efdc259cde1a",
+        "image": "https://images.unsplash.com/photo-1619767886558-efdc259cde1a",
         "year": 2006,
         "category": "SUV",
         "seating_capacity": 4,
@@ -218,7 +219,85 @@ export const dummyCarData = [
         { id: 3, name: "Sophia Lee", location: "Seoul, South Korea", image: assets.testimonial_image_2, rating: 5, testimonial: "Fantastic experience! From start to finish, the team was professional, responsive, and genuinely cared about delivering great results." }
     ];
 
+
+// Dummy user data
+export const dummyUserData = {
+  "_id": "6847f7cab3d8daecdb517095",
+  "name": "GreatStack",
+  "email": "admin@example.com",
+  "role": "owner",
+  "image": user_profile,
+}
+
+
+
+export const ownerMenuLinks = [
+    { name: "Dashboard", path: "/owner", icon: dashboardIcon, coloredIcon: dashboardIconColored },
+    { name: "Add car", path: "/owner/add-car", icon: addIcon, coloredIcon: addIconColored },
+    { name: "Manage Cars", path: "/owner/manage-cars", icon: carIcon, coloredIcon: carIconColored },
+    { name: "Manage Bookings", path: "/owner/manage-bookings", icon: listIcon, coloredIcon: listIconColored },
+]
+
+export const dummyMyBookingsData = [
+    {
+        "_id": "68482bcc98eb9722b7751f70",
+        "car": dummyCarData[0],
+        "user": "6847f7cab3d8daecdb517095",
+        "owner": "6847f7cab3d8daecdb517095",
+        "pickupDate": "2025-06-13",
+        "returnDate": "2025-06-14",
+        "status": "confirmed",
+        "price": 440,
+        "createdAt": "2025-06-10T12:57:48.244Z",
+    },
+    {
+        "_id": "68482bb598eb9722b7751f60",
+        "car": dummyCarData[1],
+        "user": "6847f7cab3d8daecdb517095",
+        "owner": "67fe3467ed8a8fe17d0ba6e2",
+        "pickupDate": "2025-06-12",
+        "returnDate": "2025-06-12",
+        "status": "pending",
+        "price": 130,
+        "createdAt": "2025-06-10T12:57:25.613Z",
+    },
+    {
+        "_id": "684800fa0fb481c5cfd92e56",
+        "car": dummyCarData[2],
+        "user": "6847f7cab3d8daecdb517095",
+        "owner": "67fe3467ed8a8fe17d0ba6e2",
+        "pickupDate": "2025-06-11",
+        "returnDate": "2025-06-12",
+        "status": "pending",
+        "price": 600,
+        "createdAt": "2025-06-10T09:55:06.379Z",
+    },
+    {
+        "_id": "6847fe790fb481c5cfd92d94",
+        "car": dummyCarData[3],
+        "user": "6847f7cab3d8daecdb517095",
+        "owner": "6847f7cab3d8daecdb517095",
+        "pickupDate": "2025-06-11",
+        "returnDate": "2025-06-12",
+        "status": "confirmed",
+        "price": 440,
+        "createdAt": "2025-06-10T09:44:25.410Z",
+    }
+]
+
+export const dummyDashboardData = {
+  totalCars: 4,
+  totalBooking: 2,
+  pendingBooking: 0,
+  completeBooking: 2,
+  recentBooking: [
+    dummyMyBookingsData[0],
+    dummyMyBookingsData[1],
+  ],
+  monthlyRevenue: 840,
+};
  
+
 
 
 

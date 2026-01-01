@@ -9,7 +9,7 @@ const Navbar = ({setShowLogin}) => {
 
   return (
     <div
-      className={`flex justify-between items-center py-4 md:px-12 shadow-md fixed top-0 left-0 w-full z-50 transition-all
+      className={`flex justify-between  items-center py-4 md:px-12 shadow-md fixed top-0 left-0 w-full z-50 transition-all
       ${location.pathname === "/" ? "bg-gray-50" : "bg-white"}`}
     >
       {/* LOGO */}
