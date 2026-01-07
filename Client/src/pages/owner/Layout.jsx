@@ -8,7 +8,7 @@ const Layout = () => {
   return (
     <div className='flex flex-col'>
         <NavbarOwner/>
-        <div className='flex'>
+        <div className='flex '>
             <SideBar/>  
             <Dashborad/>
 

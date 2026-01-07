@@ -15,7 +15,8 @@ const SideBar = () => {
   };
 
   return (
-    <div className="relative min-h-screen md:flex flex-col items-center pt-6 text-sm  bg-white border-r">
+    <div className="relative min-h-screen flex flex-col items-center pt-6 text-sm bg-white border-r 
+                w-full md:w-54 lg:w-64">
       
       {/* Profile Image */}
       <div className="group relative">

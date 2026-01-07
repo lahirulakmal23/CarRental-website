@@ -120,8 +120,8 @@ const Dashborad = () => {
 
   {/* HEADER ROW */}
   <div className="flex items-center text-xs text-gray-500 uppercase border-b pb-2 mb-4">
-    <div className="w-[30%]">Car</div>
-    <div className="w-[15%]">Pickup</div>
+    <div className="w-[30%] ">Car</div>
+    <div className="w-[15%] ">Pickup</div>
     <div className="w-[15%]">Return</div>
     <div className="w-[20%]">Location</div>
     <div className="w-[10%] text-right">Price</div>
