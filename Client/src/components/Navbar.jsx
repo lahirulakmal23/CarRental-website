@@ -48,7 +48,7 @@ const Navbar = ({setShowLogin}) => {
             Dashboard
           </button>
 
-          <button className="cursor-pointer px-6 py-2 bg-primary hover:bg-primary-dull text-white rounded-lg">
+          <button onClick={() => setShowLogin(true)} className="cursor-pointer px-6 py-2 bg-primary hover:bg-primary-dull text-white rounded-lg">
             Login
           </button>
         </div>
@@ -106,7 +106,7 @@ const Navbar = ({setShowLogin}) => {
 
           <button
             className="py-2 bg-primary text-white rounded-lg"
-            onClick={() => setOpen(false)}
+            onClick={() => setShowLogin(true)}
           >
             Login
           </button>

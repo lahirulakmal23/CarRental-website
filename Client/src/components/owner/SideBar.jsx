@@ -14,11 +14,11 @@ const SideBar = () => {
     }
   };
 
-  return (
-    <div className="relative min-h-screen flex flex-col items-center pt-6 text-sm bg-white border-r 
-                w-full md:w-54 lg:w-64">
+
+return (
+<div className="relative min-h-screen flex flex-col items-center pt-6 text-sm bg-white border-r  w-full md:w-54 lg:w-64">
       
-      {/* Profile Image */}
+  {/* Profile Image */}
       <div className="group relative">
         <label htmlFor="image" className="cursor-pointer relative">
           <img
@@ -42,7 +42,7 @@ const SideBar = () => {
         </label>
       </div>
 
-      {/* Save Button */}
+  {/* Save Button */}
       {image && (
         <button
           onClick={updateImage}
@@ -56,7 +56,7 @@ const SideBar = () => {
       {/* User Name */}
       <p className="mt-3 font-semibold">{user?.name}</p>
 
-      {/* Menu Links */}
+{/* Menu Links */}
       <div className="w-full mt-6 flex flex-col gap-1">
         {ownerMenuLinks.map((item, index) => (
           <NavLink
@@ -68,7 +68,7 @@ const SideBar = () => {
                   ? "bg-primary/10 text-primary   font-semibold"
                   : "hover:bg-primary/10 text-gray-600 "
               }`}
-          >
+            >
             <img src={item.icon} alt={item.name} className="w-5 h-5" />
             <span>{item.name}</span>
           </NavLink>

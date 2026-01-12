@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { assets, dummyDashboardData } from "../../assets/constance/constance";
+import  BookingBarChart from "../../components/dashboard/BarChart";
+import RevenuePieChart from "../../components/dashboard/PieChart";
+import RevenueLineChart from "../../components/dashboard/RevenueLineChart";
 import {
   FiSearch,
   FiBell,
@@ -197,8 +200,12 @@ const Dashborad = () => {
 
 
         <div className=" grid grid-rows-2 h-100 gap-4">
-          <div className="bg-yellow-300 rounded-md "></div>
-          <div className="bg-pink-500 rounded-md " ></div>
+          <div className="bg-white rounded-md ">
+            <BookingBarChart />
+          </div>
+          <div className=" rounded-md bg-white " >
+            <RevenueLineChart/>
+          </div>
            
         </div>
 

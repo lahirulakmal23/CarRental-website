@@ -11,7 +11,6 @@ const NavbarOwner = () => {
       {/* Left: Logo */}
       <Link to="/" className="flex items-center gap-2">
         <img src={assets.logo} alt="logo" className="h-7" />
-        
       </Link>
 
       {/* Right: User Info */}
@@ -19,8 +18,6 @@ const NavbarOwner = () => {
         <p className="text-sm text-gray-600 hidden sm:block">
           Welcome, <span className="font-semibold">{user.name || "Owner"}</span>
         </p>
-
-       
       </div>
     </nav>
   );

@@ -165,7 +165,7 @@ export const dummyCarData = [
         "owner": "67fe3467ed8a8fe17d0ba6e2",
         "brand": "Toyota",
         "model": "Corolla",
-          "image": "https://images.unsplash.com/photo-1603386329225-868f9b1ee6c9",
+        "image": "https://images.unsplash.com/photo-1603386329225-868f9b1ee6c9",
         "year": 2021,
         "category": "Sedan",
         "seating_capacity": 4,
