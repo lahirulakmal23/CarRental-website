@@ -1,4 +1,7 @@
-import User from "../models/User";
+import { format } from "path";
+import Car from "../models/Car.js";
+import User from "../models/User.js";
+import fs from 'fs';
 
 export const changeRoleToOwner = async (req, res) => {
     try {
@@ -18,15 +21,31 @@ export const addCar = async (req, res) => {
         let car = JSON.parse(req.body.carData);
         const imageFile = req.file;
 
-        car.owner = userId;
-        car.Image = imageFile.path;         
+        //upload image to imagekit
+       const fileBuffer = fs.readFileSync(imageFile.path); 
+       await imagekit.upload({
+            file : fileBuffer,
+            fileName : imageFile.originalname, 
+            folder: "/cars"      
+        });
 
-        const newCar = new Car(car);
-        await newCar.save();   
-        res.status(201).json({success: true, message: "Car added successfully", car: newCar});
-    }   
-    catch (error) {
+        var optimizedImageUrl = imagekit.url({
+            path: response.filePath,
+            transformation: [
+                { width: '1280'},
+                { quality:'auto'},
+                {format: 'webp'}
+            ]
+        });
+
+        const imageUrl = optimizedImageUrl;
+        await Car.create({...car,owner:userId,image})
+        res.status(201).json({success: true, message: "Car added successfully"});
+        
+    } catch (error) {
         res.status(500).json({success: false, message: "Server Error"});
-    }   
+    }     
+     
 }
+
  
