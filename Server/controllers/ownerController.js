@@ -2,6 +2,7 @@ import { format } from "path";
 import Car from "../models/Car.js";
 import User from "../models/User.js";
 import fs from 'fs';
+import imageKit from '../configs/imageKit.js'
 
 export const changeRoleToOwner = async (req, res) => {
     try {
@@ -23,13 +24,13 @@ export const addCar = async (req, res) => {
 
         //upload image to imagekit
        const fileBuffer = fs.readFileSync(imageFile.path); 
-       await imagekit.upload({
+       await imageKit.upload({
             file : fileBuffer,
             fileName : imageFile.originalname, 
             folder: "/cars"      
         });
 
-        var optimizedImageUrl = imagekit.url({
+        var optimizedImageUrl = imageKit.url({
             path: response.filePath,
             transformation: [
                 { width: '1280'},
