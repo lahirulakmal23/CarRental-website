@@ -3,12 +3,12 @@ import { useMemo } from "react";
 const useCarFilter = (cars, search, categories, types) => {
   return useMemo(() => {
     return cars.filter((car) => {
-      // 🔍 Search filter
+      //  Search filter
       const matchSearch =
         car.brand.toLowerCase().includes(search.toLowerCase()) ||
         car.model.toLowerCase().includes(search.toLowerCase());
 
-      // 📂 Category filter
+      //  Category filter
       const selectedCategories = Object.keys(categories).filter(
         (key) => categories[key]
       );
@@ -17,7 +17,7 @@ const useCarFilter = (cars, search, categories, types) => {
         selectedCategories.length === 0 ||
         selectedCategories.includes(car.category.toLowerCase());
 
-      // 🚗 Type filter
+      //  Type filter
       const selectedTypes = Object.keys(types).filter((key) => types[key]);
 
       const matchType =
