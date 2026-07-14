@@ -40,6 +40,7 @@ import car_image1 from "../images/car_image1.png";
 import car_image2 from "../images/car_image2.png";
 import car_image3 from "../images/car_image3.png";
 import car_image4 from "../images/car_image4.png";
+import main_car2 from "../images/header.png";
 
 
 
@@ -58,6 +59,7 @@ export const assets = {
     instagram_logo,
     twitter_logo,
     menu_icon,
+    main_car2,
     search_icon,
     close_icon,
     users_icon,
