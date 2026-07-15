@@ -1,6 +1,6 @@
 import { format } from "path";
-import Car from "../models/Car.js";
-import User from "../models/User.js";
+import Car from "../models/car.model.js";
+import User from "../models/user.model.js";
 import fs from 'fs';
 import imageKit from '../configs/imageKit.js'
 
