@@ -10,6 +10,7 @@ import Dashbord from "./pages/owner/Dashborad"
 import ManageCar from "./pages/owner/ManageCar";
 import ManageBooking from "./pages/owner/ManageBooking";
 import AddCar from "./pages/owner/AddCar";
+import Login from "./components/Login";
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
@@ -17,20 +18,22 @@ function App() {
 
   return (
     <div className="App">
+     {showLogin && <Login setShowLogin={setShowLogin} />}
+
       {!isOwnerPath && <Navbar setShowLogin={setShowLogin} />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/car-details/:id" element={<CarDetails />} />
         <Route path="/cars" element={<AllCars />} />
         <Route path="/my-bookings" element={<Mybooking />} />
+        <Route path="/login" element={<Login setShowLogin={setShowLogin} />} />
+        
 
         <Route path="/owner" element={<Layout/>}>
           <Route index element={<Dashbord/>}/>
           <Route path="add-car" element={<AddCar/>}/>
           <Route path="manage-cars" element={<ManageCar/>}/>
-          <Route path="manage-booking" element={<ManageBooking/>}/>
-
-      
+          <Route path="manage-bookings" element={<ManageBooking/>}/>
           
         </Route>
 

@@ -40,6 +40,7 @@ import car_image1 from "../images/car_image1.png";
 import car_image2 from "../images/car_image2.png";
 import car_image3 from "../images/car_image3.png";
 import car_image4 from "../images/car_image4.png";
+import main_car2 from "../images/header.png";
 
 
 
@@ -58,6 +59,7 @@ export const assets = {
     instagram_logo,
     twitter_logo,
     menu_icon,
+    main_car2,
     search_icon,
     close_icon,
     users_icon,
@@ -165,7 +167,7 @@ export const dummyCarData = [
         "owner": "67fe3467ed8a8fe17d0ba6e2",
         "brand": "Toyota",
         "model": "Corolla",
-          "image": "https://images.unsplash.com/photo-1603386329225-868f9b1ee6c9",
+        "image": "https://images.unsplash.com/photo-1603386329225-868f9b1ee6c9",
         "year": 2021,
         "category": "Sedan",
         "seating_capacity": 4,
@@ -236,6 +238,7 @@ export const ownerMenuLinks = [
     { name: "Add car", path: "/owner/add-car", icon: addIcon, coloredIcon: addIconColored },
     { name: "Manage Cars", path: "/owner/manage-cars", icon: carIcon, coloredIcon: carIconColored },
     { name: "Manage Bookings", path: "/owner/manage-bookings", icon: listIcon, coloredIcon: listIconColored },
+   
 ]
 
 export const dummyMyBookingsData = [
