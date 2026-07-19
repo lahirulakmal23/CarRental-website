@@ -1,19 +1,21 @@
 import express from "express";
-import { protect } from "../middlewares/auth.js";
-import { changeRoleToOwner, addCar } from "../controllers/ownerController.js";
-import upload from "../middlewares/multer.js";
+import {changeRoleToOwner, addCar, getDashboard,} from "../controllers/owner.controller.js";
+import upload from "../middlewares/multer.middleware.js";
+import { protect } from "../middlewares/auth.middleware.js";
+import { authorize } from "../middlewares/role.middleware.js";
 
 const ownerRoutes = express.Router();
 
-// Change role to owner
 ownerRoutes.post("/change-role", protect, changeRoleToOwner);
 
-// Add new car (protected + image upload)
 ownerRoutes.post(
   "/add-car",
   protect,
+  authorize("owner"),
   upload.single("image"),
-  addCar
+  addCar,
 );
+
+ownerRoutes.get("/dashboard", protect, authorize("owner"), getDashboard);
 
 export default ownerRoutes;
