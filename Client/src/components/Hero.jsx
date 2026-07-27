@@ -7,13 +7,13 @@ const Hero = () => {
   const [returnDate, setReturnDate] = useState("");
 
   return (
-    <div className="w-full bg-gradient-to-r from-gray-50 to-gray-100 pt-24 md:pt-28 pb-24 md:pb-10 mt-10">
+    <div className="w-full bg-gradient-to-r from-gray-50 to-gray-100 pt-24 md:pt-28 pb-24 md:pb-10 mt-16">
       {/* TOP SECTION: text left, car on gray panel right */}
-      <div className="max-w-7xl mx-auto px-4 md:px-8 flex flex-col md:flex-row items-center gap-8 md:gap-4">
+      <div className=" mx-12 px-4 md:px-8 flex flex-col md:flex-row items-center gap-8 md:gap-4">
         {/* LEFT: text content */}
         <div className="w-full md:w-1/2 flex flex-col items-start text-left">
           <div className="flex items-center gap-2 bg-white border border-gray-200 shadow-sm rounded-full px-4 py-1.5 mb-5">
-            <span>👍</span>
+            
             <span className="text-sm font-medium text-indigo-600">
               100% Trusted car rental platform
             </span>
