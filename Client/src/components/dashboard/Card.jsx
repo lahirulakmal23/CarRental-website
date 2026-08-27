@@ -21,7 +21,7 @@ const DashboardStats = () => {
     {
       title: "Total Cars",
       value: data.totalCars,
-      icon: FiShoppingBag,
+      icon: FiShoppingBa,
       percent: "+12%",
     },
     {
