@@ -5,6 +5,7 @@ import imageKit from "../config/imageKit.js";
 import ApiError from "../utils/ApiError.js";
 import ApiResponse from "../utils/ApiResponse.js";
 import asyncHandler from "../utils/asyncHandler.js";
+import { getOwnerStats, getOwnerRecentBookings } from "../services/stats.services.js";
 
 
 // @route  PATCH /api/v1/owner/change-role
@@ -27,7 +28,7 @@ export const changeRoleToOwner = asyncHandler(async (req, res) => {
   res.status(200).json(new ApiResponse(200, { role: user.role }, "Role updated to owner"));
 });
 
-// @route  POST /api/v1/owner/cars
+// @route  POST /api/v1/owner/add-car
 // @access Private (owner only)
 export const addCar = asyncHandler(async (req, res) => {
   const userId = req.user.id;
@@ -37,12 +38,21 @@ export const addCar = asyncHandler(async (req, res) => {
     throw new ApiError(400, "Car image is required");
   }
 
-  let car;
-  try {
-    car = JSON.parse(req.body.carData);
-  } catch (err) {
-    throw new ApiError(400, "Invalid car data format");
-  }
+  const parseCarData = (body) => {
+    if (body.carData) {
+      if (typeof body.carData === "string") {
+        try {
+          return JSON.parse(body.carData);
+        } catch (err) {
+          throw new ApiError(400, "Invalid car data format");
+        }
+      }
+      return body.carData;
+    }
+    return body;
+  };
+
+  const car = parseCarData(req.body);
 
   // upload image to ImageKit
   const fileBuffer = fs.readFileSync(imageFile.path);
@@ -64,10 +74,32 @@ export const addCar = asyncHandler(async (req, res) => {
   });
 
   const newCar = await Car.create({
-    ...car,
     owner: userId,
-    image: [optimizedImageUrl],
+    brand: car.brand,
+    model: car.model,
+    year: car.year,
+    category: car.category,
+    pricePerDay: car.pricePerDay ?? car.pricePerday,
+    location: car.location,
+    description: car.description,
+    seatCapacity: car.seatCapacity ?? car.seating_capacity ?? car.seats,
+    transmission: car.transmission ?? car.transmision,
+    fuelType: car.fuelType ?? car.fule_type,
+    image: optimizedImageUrl,
   });
 
   res.status(201).json(new ApiResponse(201, newCar, "Car added successfully"));
+});
+
+// @route  GET /api/v1/owner/dashboard
+// @access Private (owner only)
+export const getDashboard = asyncHandler(async (req, res) => {
+  const [stats, recentBookings] = await Promise.all([
+    getOwnerStats(req.user.id),
+    getOwnerRecentBookings(req.user.id),
+  ]);
+
+  res.status(200).json(
+    new ApiResponse(200, { ...stats, recentBookings }, "Dashboard data fetched successfully")
+  );
 });

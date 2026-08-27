@@ -26,6 +26,8 @@ export const addCar = asyncHandler(async (req, res) => {
     seats,
   } = req.body;
 
+  
+
   const car = await Car.create({
     owner: req.user.id, // taken from JWT, never trust client-supplied owner id
     brand,

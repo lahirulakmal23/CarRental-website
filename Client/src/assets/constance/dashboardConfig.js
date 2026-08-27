@@ -12,6 +12,7 @@ export const MONTHLY_DATA = [
   { month: "Nov", bookings: 35, revenue: 4900 },
   { month: "Dec", bookings: 44, revenue: 6200 },
 ];
+import { FaCar } from "react-icons/fa";
 
 export const BOOKING_STATUS_MAP = {
   Confirmed: { bg: "bg-blue-50",   color: "text-blue-700" },
@@ -33,15 +34,14 @@ export const QUICK_ACTIONS = [
 ];
 
 export const buildStatCards = (data, currency) => [
-  { title: "Total Cars",     value: data.totalCars,      sub: "in your fleet",       accent: "#6366f1", icon: "🚗", trend: 0    },
-  { title: "Total Bookings", value: data.totalBooking,   sub: "all time",            accent: "#0ea5e9", icon: "📋", trend: 12   },
-  { title: "Pending",        value: data.pendingBooking, sub: "awaiting review",     accent: "#f59e0b", icon: "⏳", trend: null },
-  { title: "Completed",      value: data.completeBooking,sub: "successful rentals",  accent: "#22c55e", icon: "✅", trend: 8    },
+  { title: "Total Cars",     value: data.totalCars,      sub: "in your fleet",      icon: "🚗", trend: 0    },
+  { title: "Total Bookings", value: data.totalBooking,   sub: "all time",            icon: "📋", trend: 12   },
+  { title: "Pending",        value: data.pendingBooking, sub: "awaiting review",    icon: "⏳", trend: null },
+  { title: "Completed",      value: data.completeBooking,sub: "successful rentals",  icon: "✅", trend: 8    },
   {
     title: "Total Earnings",
     value: `${currency}${(data.totalEarning || data.monthlyRevenue || 0).toLocaleString()}`,
     sub: "confirmed bookings",
-    accent: "#a855f7",
     icon: "💰",
     trend: 18,
   },

@@ -19,35 +19,13 @@ import { authorize } from "../middlewares/role.middleware.js";
 
 const router = Router();
 
-router.post(
-  "/",
-  protect,
-  authorize("customer"),
-  createBookingValidator,
-  validate,
-  createBooking
-);
+router.post("/",protect,authorize("customer"),createBookingValidator,validate,createBooking);
 
 router.get("/my-bookings", protect, authorize("customer"), getMyBookings);
 router.get("/owner-bookings", protect, authorize("owner"), getOwnerBookings);
 router.get("/:id", protect, bookingIdValidator, validate, getBookingById);
 
-router.patch(
-  "/:id/cancel",
-  protect,
-  authorize("customer"),
-  cancelBookingValidator,
-  validate,
-  cancelBooking
-);
-
-router.patch(
-  "/:id/status",
-  protect,
-  authorize("owner"),
-  updateStatusValidator,
-  validate,
-  updateBookingStatus
-);
+router.patch( "/:id/cancel",protect,authorize("customer"),cancelBookingValidator,validate,cancelBooking);
+router.patch("/:id/status",protect,authorize("owner"),updateStatusValidator,validate,updateBookingStatus);
 
 export default router;
