@@ -1,64 +1,43 @@
 import React from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { menuLinks, assets } from "../assets/constance/constance";
 
-const Navbar = ({setShowLogin}) => {
-  const location = useLocation();
-  const navigate = useNavigate();
+const Navbar = ({ setShowLogin }) => {
   const [open, setOpen] = React.useState(false);
 
+  const linkClass = ({ isActive }) =>
+    `transition hover:text-primary ${
+      isActive ? "text-primary font-semibold" : "text-gray-700"
+    }`;
+
   return (
-    <div
-      className={`flex justify-between  items-center py-4 md:px-12 shadow-md fixed top-0 left-0 w-full z-50 transition-all
-      ${location.pathname === "/" ? "bg-gray-50" : "bg-white"}`}
-    >
-      {/* LOGO */}
-      <Link to="/">
+    <div className="flex justify-between items-center px-6 md:px-16 py-4 bg-white shadow-md fixed top-0 left-0 w-full z-50">
+      {/* LOGO - left */}
+      <Link to="/" className="md:flex-1">
         <img src={assets.logo} alt="logo" className="h-8" />
       </Link>
 
-      {/* DESKTOP NAV LINKS */}
-      <div className="hidden sm:flex items-center gap-10">
+      {/* NAV LINKS - middle */}
+      <div className="hidden md:flex items-center gap-10">
         {menuLinks.map((link) => (
-          <Link
-            key={link.name}
-            to={link.path}
-            className="hover:text-primary transition"
-          >
+          <NavLink key={link.name} to={link.path} end className={linkClass}>
             {link.name}
-          </Link>
+          </NavLink>
         ))}
+      </div>
 
-        {/* SEARCH BAR (Desktop only) */}
-        <div className="hidden lg:flex items-center text-sm gap-2 border px-3 py-1 rounded-full max-w-56">
-          <input
-            type="text"
-            placeholder="Search..."
-            className="py-1 w-full bg-transparent outline-none placeholder-gray-500"
-          />
-          <img src={assets.search_icon} alt="search" className="w-4" />
-        </div>
-
-        {/* BUTTONS (Desktop only) */}
-        <div className="hidden sm:flex items-center gap-4">
-          <button
-            onClick={() => navigate("/owner")}
-            className="cursor-pointer"
-          >
-            Dashboard
-          </button>
-
-          <button onClick={() => setShowLogin(true)} className="cursor-pointer px-6 py-2 bg-primary hover:bg-primary-dull text-white rounded-lg">
-            Login
-          </button>
-        </div>
+      {/* LOGIN - right */}
+      <div className="hidden md:flex flex-1 justify-end">
+        <button
+          onClick={() => setShowLogin(true)}
+          className="cursor-pointer px-6 py-2 bg-primary hover:bg-primary-dull text-white rounded-lg"
+        >
+          Login
+        </button>
       </div>
 
       {/* MOBILE MENU BUTTON */}
-      <button
-        className="sm:hidden"
-        onClick={() => setOpen(!open)}
-      >
+      <button className="md:hidden" onClick={() => setOpen(!open)}>
         <img
           src={open ? assets.close_icon : assets.menu_icon}
           alt="menu"
@@ -68,49 +47,32 @@ const Navbar = ({setShowLogin}) => {
 
       {/* MOBILE MENU */}
       <div
-        className={`sm:hidden fixed top-16 right-0 h-screen w-64 bg-white shadow-lg p-5 transition-all duration-300 
+        className={`md:hidden fixed top-16 right-0 h-screen w-64 bg-white shadow-lg p-5 transition-all duration-300
         ${open ? "translate-x-0" : "translate-x-full"}`}
       >
         {menuLinks.map((link) => (
-          <Link
+          <NavLink
             key={link.name}
             to={link.path}
+            end
             onClick={() => setOpen(false)}
-            className="block text-lg py-3 "
+            className={({ isActive }) =>
+              `block text-lg py-3 ${isActive ? "text-primary font-semibold" : ""}`
+            }
           >
             {link.name}
-          </Link>
+          </NavLink>
         ))}
 
-        {/* Search Bar on Mobile */}
-        <div className="mt-4 flex items-center border px-3 py-2 rounded-lg">
-          <input
-            type="text"
-            placeholder="Search..."
-            className="w-full outline-none"
-          />
-          <img src={assets.search_icon} alt="search" className="w-5" />
-        </div>
-
-        {/* Buttons on Mobile */}
-        <div className="mt-6 flex flex-col gap-3">
-          <button
-            onClick={() => {
-              navigate("/owner");
-              setOpen(false);
-            }}
-            className="py-2 border rounded-lg"
-          >
-            Dashboard
-          </button>
-
-          <button
-            className="py-2 bg-primary text-white rounded-lg"
-            onClick={() => setShowLogin(true)}
-          >
-            Login
-          </button>
-        </div>
+        <button
+          className="mt-6 w-full py-2 bg-primary text-white rounded-lg"
+          onClick={() => {
+            setShowLogin(true);
+            setOpen(false);
+          }}
+        >
+          Login
+        </button>
       </div>
     </div>
   );
