@@ -1,132 +1,80 @@
-import React, { useState } from "react";
-import { assets, cityList } from "../assets/constance/constance";
+import { useEffect, useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { assets } from "../assets/constance/constance";
+import SearchBar from "./SearchBar";
+
+const slides = [
+  { image: assets.hero_new, label: "Audi on a scenic mountain road" },
+  { image: assets.car_image4, label: "Blue sports car on an open road" },
+  { image: assets.car_image1, label: "BMW ready for your next journey" },
+];
 
 const Hero = () => {
-  const [location, setLocation] = useState("");
-  const [pickupDate, setPickupDate] = useState("");
-  const [returnDate, setReturnDate] = useState("");
+  const [activeSlide, setActiveSlide] = useState(0);
+  const [playing, setPlaying] = useState(() => !window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  const [focused, setFocused] = useState(false);
+
+  useEffect(() => {
+    const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const stopForReducedMotion = () => { if (preference.matches) setPlaying(false); };
+    preference.addEventListener("change", stopForReducedMotion);
+    return () => preference.removeEventListener("change", stopForReducedMotion);
+  }, []);
+
+  useEffect(() => {
+    if (!playing || focused) return;
+    const timer = window.setInterval(() => {
+      if (!document.hidden) setActiveSlide((current) => (current + 1) % slides.length);
+    }, 5000);
+    return () => window.clearInterval(timer);
+  }, [playing, focused, activeSlide]);
+
+  const changeSlide = (index) => {
+    setActiveSlide((index + slides.length) % slides.length);
+  };
+  const controlClass = "flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-full border border-white/30 bg-slate-900/50 text-white transition-colors hover:bg-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white";
 
   return (
-    <div className="w-full bg-gradient-to-r from-gray-50 to-gray-100 pt-24 md:pt-28 pb-24 md:pb-10 mt-16">
-      {/* TOP SECTION: text left, car on gray panel right */}
-      <div className=" mx-12 px-4 md:px-8 flex flex-col md:flex-row items-center gap-8 md:gap-4">
-        {/* LEFT: text content */}
-        <div className="w-full md:w-1/2 flex flex-col items-start text-left">
-          <div className="flex items-center gap-2 bg-white border border-gray-200 shadow-sm rounded-full px-4 py-1.5 mb-5">
-            
-            <span className="text-sm font-medium text-indigo-600">
-              100% Trusted car rental platform
-            </span>
+    <div className="w-full">
+      <section
+        className="relative isolate w-full min-h-[480px] md:min-h-[560px] overflow-hidden"
+        aria-label="Featured car images"
+        aria-roledescription="carousel"
+        onFocusCapture={() => setFocused(true)}
+        onBlurCapture={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false); }}
+      >
+        {slides.map((slide, index) => (
+          <div key={slide.image} role="group" aria-roledescription="slide" aria-label={`${index + 1} of ${slides.length}: ${slide.label}`} aria-hidden={activeSlide !== index} className={`absolute inset-0 -z-20 motion-safe:transition-opacity motion-safe:duration-1000 motion-safe:ease-in-out ${activeSlide === index ? 'opacity-100' : 'opacity-0'}`}>
+            <img src={slide.image} alt={slide.label} fetchPriority={index === 0 ? "high" : "auto"} className="h-full w-full object-cover object-center" />
           </div>
+        ))}
+        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-black/85 via-black/50 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 -z-10 h-40 bg-gradient-to-t from-black/70 to-transparent" />
 
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight mb-4">
-            FAST AND EASY WAY
-            <br />
-            TO RENT A CAR
-          </h1>
-
-          <p className="text-gray-500 text-sm md:text-base leading-relaxed max-w-md">
-            Discover a seamless car rental experience with us. Choose from a
-            range of premium vehicles to suit your style and needs, and hit
-            the road with confidence. Quick, easy, and reliable - rent your
-            ride today!
-          </p>
+        <div className="relative px-6 md:px-16 pt-36 md:pt-44 pb-48">
+          <p className="text-xs md:text-sm font-semibold tracking-[0.2em] text-gray-200 uppercase mb-4">Car Rental Service</p>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white leading-tight">Explore More<br /><span className="text-blue-500">Drive Freely</span></h1>
+          <p className="text-gray-200 text-sm md:text-base leading-relaxed max-w-md mt-5">Rent the perfect car for your journey. Affordable rates, flexible plans and a smooth experience &mdash; only at CarRental.</p>
         </div>
 
-        {/* RIGHT: car image on gray/purple background panel (independent sizes) */}
-        <div className="w-full md:w-1/2 relative flex justify-center md:justify-end mt-8 md:mt-0">
-          {/* Gray background panel - fixed size, does NOT control image size */}
-          <div className="w-[90%] h-[180px] sm:h-[220px] md:h-[260px] bg-gradient-to-b from-indigo-100 to-indigo-200 rounded-2xl" />
-
-          {/* Car image - sized independently, free to overflow the panel */}
-          <img
-            src={assets.main_car2}
-            alt="Luxury Car"
-            className="absolute bottom-0 left-1/2 md:left-auto md:right-0 -translate-x-1/2 md:translate-x-0 w-[110%] sm:w-[105%] md:w-[120%] max-w-none object-contain pointer-events-none"
-          />
-        </div>
-      </div>
-
-      {/* SEARCH BOX - overlaps bottom of hero */}
-      <div className="max-w-5xl mx-auto px-4 mt-10 md:mt-8">
-        <div
-          className="
-            bg-white shadow-xl rounded-2xl border border-gray-100
-            p-5 md:px-8 md:py-5
-            flex flex-col md:flex-row
-            items-stretch md:items-center
-            gap-5 md:gap-8
-          "
-        >
-          {/* Pickup Location */}
-          <div className="flex flex-col w-full md:w-auto md:flex-1">
-            <label className="font-semibold text-gray-700 text-sm">
-              Pickup Location
-            </label>
-            <select
-              required
-              value={location ? location : "please select location"}
-              onChange={(e) => setLocation(e.target.value)}
-              className="mt-1 border rounded-lg px-3 py-2 text-gray-600"
-            >
-              <option disabled value="please select location">
-                Please select location
-              </option>
-              {cityList.map((city, index) => (
-                <option key={index} value={city}>
-                  {city}
-                </option>
+        <div className="absolute inset-x-6 bottom-24 flex items-center justify-between gap-4 md:inset-x-16 md:bottom-28">
+          <div className="flex items-center gap-3">
+            <button type="button" aria-label="Previous image" onClick={() => changeSlide(activeSlide - 1)} className={controlClass}><ChevronLeft aria-hidden="true" className="h-5 w-5" /></button>
+            <div className="flex items-center gap-1" role="group" aria-label="Choose hero image">
+              {slides.map((slide, index) => (
+                <button key={slide.image} type="button" aria-label={`Show image ${index + 1}: ${slide.label}`} aria-current={index === activeSlide ? "true" : undefined} onClick={() => changeSlide(index)} className="flex h-10 min-w-8 cursor-pointer items-center justify-center rounded focus-visible:outline-2 focus-visible:outline-white"><span className={`h-2 rounded-full transition-all motion-reduce:transition-none ${index === activeSlide ? 'w-7 bg-blue-500' : 'w-2 bg-white/60'}`} /></button>
               ))}
-            </select>
+            </div>
+            <button type="button" aria-label="Next image" onClick={() => changeSlide(activeSlide + 1)} className={controlClass}><ChevronRight aria-hidden="true" className="h-5 w-5" /></button>
           </div>
-
-          {/* Pick Up Date */}
-          <div className="flex flex-col w-full md:w-auto md:flex-1">
-            <label className="font-semibold text-gray-700 text-sm">
-              Pick-up Date
-            </label>
-            <input
-              type="date"
-              value={pickupDate}
-              onChange={(e) => setPickupDate(e.target.value)}
-              min={new Date().toISOString().split("T")[0]}
-              className="mt-1 border rounded-lg px-3 py-2 text-gray-600"
-            />
-          </div>
-
-          {/* Return Date */}
-          <div className="flex flex-col w-full md:w-auto md:flex-1">
-            <label className="font-semibold text-gray-700 text-sm">
-              Return Date
-            </label>
-            <input
-              type="date"
-              value={returnDate}
-              onChange={(e) => setReturnDate(e.target.value)}
-              min={new Date().toISOString().split("T")[0]}
-              className="mt-1 border rounded-lg px-3 py-2 text-gray-600"
-            />
-          </div>
-
-          {/* Search Button */}
-          <button
-            className="
-              flex items-center justify-center gap-2
-              bg-blue-600 hover:bg-blue-700
-              text-white font-semibold
-              px-6 py-2.5
-              rounded-full
-              w-full md:w-auto
-              mt-1 md:mt-5
-            "
-          >
-            <img src={assets.search_icon} alt="search" className="w-4 h-4" />
-            Search
-          </button>
         </div>
-      </div>
+      </section>
+
+      <div className="relative max-w-6xl mx-auto px-4 -mt-16 md:-mt-20 mb-14 z-10"><SearchBar /></div>
     </div>
   );
 };
 
 export default Hero;
+
+

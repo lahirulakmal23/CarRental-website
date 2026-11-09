@@ -61,7 +61,7 @@ const Testimonial = () => {
             </div>
 
             {/* Carousel */}
-            <div className="relative max-w-6xl mx-auto px-4 md:px-16 mt-12">
+            <div className="relative max-w-[1600px] mx-auto px-4 md:px-16 mt-12">
                 <ArrowButton onClick={() => goTo(page - 1)} disabled={page === 0} className="left-2">
                     <ChevronLeft className="w-5 h-5" />
                 </ArrowButton>
@@ -74,8 +74,8 @@ const Testimonial = () => {
                     {testimonials.map((testimonial) => (
                         <div key={testimonial.id} className="snap-start shrink-0 w-full sm:w-1/2 lg:w-1/3 p-3">
                             <div className="h-full flex flex-col bg-white rounded-2xl shadow-[0_8px_30px_rgba(15,23,42,0.06)] p-6">
-                                <div className="flex items-start gap-4">
-                                    <img className="w-16 h-16 rounded-full object-cover" src={testimonial.image} alt={testimonial.name} />
+                                <div className="flex flex-wrap items-start gap-3">
+                                    <img className="w-12 h-12 shrink-0 rounded-full object-cover" src={testimonial.image} alt={testimonial.name} />
                                     <div className="flex-1">
                                         <p className="font-semibold text-slate-900">{testimonial.name}</p>
                                         <p className="text-xs text-blue-600/80 mt-0.5">
@@ -90,19 +90,10 @@ const Testimonial = () => {
                                             ))}
                                         </div>
                                     </div>
-                                    <Quote className="w-7 h-7 text-blue-200 fill-blue-200 rotate-180" />
+                                    <Quote className="w-5 h-5 shrink-0 text-blue-200 fill-blue-200 rotate-180" />
                                 </div>
 
                                 <p className="text-sm text-gray-600 leading-relaxed mt-5 flex-1">"{testimonial.testimonial}"</p>
-
-                                {/* Rented car */}
-                                <div className="mt-5 flex items-center gap-4 bg-slate-50 rounded-xl p-3">
-                                    <img src={testimonial.car.image} alt={testimonial.car.name} className="w-24 h-14 object-cover rounded-lg" />
-                                    <div>
-                                        <p className="text-sm font-medium text-slate-900">{testimonial.car.name}</p>
-                                        <p className="text-xs text-gray-500">{testimonial.car.category} • {testimonial.car.seats} Seats</p>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     ))}
@@ -151,3 +142,6 @@ const Testimonial = () => {
 }
 
 export default Testimonial
+
+
+

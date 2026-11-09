@@ -41,6 +41,7 @@ import car_image2 from "../images/car_image2.png";
 import car_image3 from "../images/car_image3.png";
 import car_image4 from "../images/car_image4.png";
 import main_car2 from "../images/header.png";
+import hero_new from "../images/hero-new.jpg";
 
 
 
@@ -48,6 +49,8 @@ export const menuLinks = [
   { name: 'Home', path: '/' },
   { name: 'Cars', path: '/cars' },
   {name: 'My bookings', path: '/my-bookings'},
+  { name: 'About Us', path: '/about' },
+  { name: 'Contact Us', path: '/contact' },
   
 ];
 
@@ -60,6 +63,7 @@ export const assets = {
     twitter_logo,
     menu_icon,
     main_car2,
+    hero_new,
     search_icon,
     close_icon,
     users_icon,
@@ -150,7 +154,7 @@ export const dummyCarData = [
         "owner": "67fe3467ed8a8fe17d0ba6e2",
         "brand": "BMW",
         "model": "X5",
-        "image": "https://images.unsplash.com/photo-1619767886558-efdc259cde1a",
+        "image": car_image1,
         "year": 2006,
         "category": "SUV",
         "seating_capacity": 4,
@@ -167,7 +171,7 @@ export const dummyCarData = [
         "owner": "67fe3467ed8a8fe17d0ba6e2",
         "brand": "Toyota",
         "model": "Corolla",
-        "image": "https://images.unsplash.com/photo-1603386329225-868f9b1ee6c9",
+        "image": car_image2,
         "year": 2021,
         "category": "Sedan",
         "seating_capacity": 4,
@@ -184,7 +188,7 @@ export const dummyCarData = [
         "owner": "67fe3467ed8a8fe17d0ba6e2",
         "brand": "Jeep ",
         "model": "Wrangler",
-        "image": "https://images.unsplash.com/photo-1617531653332-bd46c24f2068",
+        "image": car_image3,
         "year": 2023,
         "category": "SUV",
         "seating_capacity": 4,
@@ -216,9 +220,12 @@ export const dummyCarData = [
 ];
 
  export  const testimonials = [
-        { id: 1, name: "Emma Rodriguez", location: "Barcelona, Spain", image:assets.testimonial_image_2, rating: 5, testimonial: "Exceptional service and attention to detail. Everything was handled professionally and efficiently from start to finish. Highly recommended!" },
-        { id: 2, name: "Liam Johnson", location: "New York, USA", image: assets.testimonials_image_1, rating: 4, testimonial: "I’m truly impressed by the quality and consistency. The entire process was smooth, and the results exceeded all expectations. Thank you!" },
-        { id: 3, name: "Sophia Lee", location: "Seoul, South Korea", image: assets.testimonial_image_2, rating: 5, testimonial: "Fantastic experience! From start to finish, the team was professional, responsive, and genuinely cared about delivering great results." }
+        { id: 1, name: "Emma Rodriguez", location: "Spain", trips: 2, image: assets.testimonial_image_2, rating: 5, testimonial: "The booking process was simple, the car was in excellent condition, and the staff was super friendly. I'll definitely use them again for my next trip!", car: { name: "BMW X5", category: "SUV", seats: 4, image: assets.car_image1 } },
+        { id: 2, name: "Liam Johnson", location: "USA", trips: 1, image: assets.testimonials_image_1, rating: 5, testimonial: "The car was spotless and performed perfectly throughout our 7-day trip. The pickup and drop-off process was quick and hassle-free. Great value for money!", car: { name: "Toyota Corolla", category: "Sedan", seats: 4, image: assets.car_image2 } },
+        { id: 3, name: "Sophia Lee", location: "South Korea", trips: 3, image: assets.testimonial_image_2, rating: 5, testimonial: "Excellent service and very professional team. The car was new and clean, and the pricing was transparent with no hidden fees. Highly recommended!", car: { name: "Jeep Wrangler", category: "SUV", seats: 4, image: assets.car_image3 } },
+        { id: 4, name: "Noah Williams", location: "Canada", trips: 4, image: assets.testimonials_image_1, rating: 4, testimonial: "Great selection of cars and fair prices. Support answered my questions at midnight. A smooth experience from start to finish.", car: { name: "Ford Neo 6", category: "Sedan", seats: 2, image: assets.car_image4 } },
+        { id: 5, name: "Olivia Brown", location: "UK", trips: 2, image: assets.testimonial_image_2, rating: 5, testimonial: "Booking took less than five minutes and the car was ready when we landed. Will definitely rent again on our next holiday.", car: { name: "BMW X5", category: "SUV", seats: 4, image: assets.car_image1 } },
+        { id: 6, name: "Ethan Davis", location: "Australia", trips: 1, image: assets.testimonials_image_1, rating: 5, testimonial: "Clean car, friendly staff and no surprises on the final bill. Exactly what you want from a rental company.", car: { name: "Toyota Corolla", category: "Sedan", seats: 4, image: assets.car_image2 } }
     ];
 
 

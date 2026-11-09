@@ -1,5 +1,4 @@
 import React from "react";
-import { assets } from "../assets/constance/constance";
 import { useNavigate } from "react-router-dom";
 
 const CarCard = ({ car }) => {
@@ -7,74 +6,49 @@ const CarCard = ({ car }) => {
   const navigate = useNavigate();
 
   return (
-  <div
-  onClick={() => navigate(`/car-details/${car._id}`)}
-  className="bg-white group rounded-xl shadow-md hover:shadow-lg transition-all duration-500 hover:-translate-y-1 overflow-hidden cursor-pointer"
->
-
+    <div className="bg-white border border-gray-100 rounded-xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col">
       {/* Image */}
-      <div className="relative">
+      <div
+        onClick={() => navigate(`/car-details/${car._id}`)}
+        className="relative bg-gray-50 h-40 overflow-hidden cursor-pointer"
+      >
         <img
           src={car.image}
-          alt={car.name}
-          className="w-full h-44 object-cover"
+          alt={`${car.brand} ${car.model}`}
+          className="w-full h-full object-cover"
         />
-
-        {/* Available Badge */}
-        {car.isAvaliable ? (
-          <span className="absolute top-3 left-3 bg-blue-600 text-white text-xs px-3 py-1 rounded-full">
-            Available Now
-          </span>
-        ) : (
-          <span className="absolute top-3 left-3 bg-green-500 text-white text-xs px-3 py-1 rounded-full">
+        {!car.isAvaliable && (
+          <span className="absolute top-3 left-3 bg-gray-900/80 text-white text-xs px-3 py-1 rounded-full">
             Not Available
           </span>
         )}
-
-        {/* Price */}
-        <span className="absolute bottom-3 right-3 bg-black/80 text-white text-xs px-3 py-1 rounded-full">
-          {currencySymbol}
-          {car.pricePerDay}/day
-        </span>
       </div>
 
       {/* Content */}
-      <div className="p-4">
-        <h3 className="font-semibold text-lg">
+      <div className="p-4 flex flex-col flex-1">
+        <h3 className="font-semibold text-gray-900">
           {car.brand} {car.model}
         </h3>
-        <p className="text-sm text-gray-500">
-          {car.category} {car.year}
+        <p className="text-xs text-gray-500 mt-1">
+          {car.category} <span className="mx-1">|</span>
+          {car.seating_capacity} Seats <span className="mx-1">|</span>
+          {car.transmission}
         </p>
 
-        {/* Info */}
-        <div className="grid grid-cols-2 gap-y-2 text-sm text-gray-600 mt-4">
-          <div className="flex items-center text-sm text-muted-foreground bg-blue-50 p-2 rounded-lg  w-fit">
-            <img
-              src={assets.users_icon}
-              alt="users icon"
-              className="h-4 mr-2"
-            />
-            <span> {car.seating_capacity} Seats</span>
-          </div>
-          <div className="flex items-center text-sm text-muted-foreground bg-blue-50  p-2 rounded-lg  w-fit">
-            <img src={assets.fuel_icon} alt="users icon" className="h-4 mr-2" />
-            <span> {car.fuel_type}</span>
-          </div>
-          <div className="flex items-center text-sm text-muted-foreground bg-blue-50 p-2 rounded-lg  w-fit">
-            <img src={assets.car_icon} alt="users icon" className="h-4 mr-2" />
-            <span> {car.transmission}</span>
-          </div>
+        <p className="mt-4 mb-4">
+          <span className="text-xl font-bold text-blue-600">
+            {currencySymbol}
+            {car.pricePerDay}
+          </span>
+          <span className="text-sm text-gray-500"> / day</span>
+        </p>
 
-          <div className="flex items-center text-sm text-muted-foreground bg-blue-50  p-2 rounded-lg  w-fit">
-            <img
-              src={assets.location_icon}
-              alt="users icon"
-              className="h-4 mr-2"
-            />
-            <span> {car.location}</span>
-          </div>
-        </div>
+        <button
+          onClick={() => navigate(`/car-details/${car._id}`)}
+          className="mt-auto w-full bg-blue-600 hover:bg-blue-700 transition text-white text-sm font-semibold py-2 rounded-lg cursor-pointer"
+        >
+          Book Now
+        </button>
       </div>
     </div>
   );

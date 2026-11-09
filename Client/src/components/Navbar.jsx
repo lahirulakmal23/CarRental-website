@@ -1,17 +1,26 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { menuLinks, assets } from "../assets/constance/constance";
 
 const Navbar = ({ setShowLogin }) => {
   const [open, setOpen] = React.useState(false);
+  const { pathname } = useLocation();
+  const [scrolled, setScrolled] = React.useState(() => window.scrollY > 24);
+  const transparent = pathname === '/' && !scrolled;
+
+  React.useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   const linkClass = ({ isActive }) =>
     `transition hover:text-primary ${
-      isActive ? "text-primary font-semibold" : "text-gray-700"
+      isActive ? (transparent ? "text-blue-300 font-semibold" : "text-primary font-semibold") : (transparent ? "text-white" : "text-gray-700")
     }`;
 
   return (
-    <div className="flex justify-between items-center px-6 md:px-16 py-4 bg-white shadow-md fixed top-0 left-0 w-full z-50">
+    <div className={`flex justify-between items-center px-6 md:px-16 py-4 fixed top-0 left-0 w-full z-50 transition-colors duration-300 ${transparent ? "bg-transparent" : "bg-white shadow-md"}`}>
       {/* LOGO - left */}
       <Link to="/" className="md:flex-1">
         <img src={assets.logo} alt="logo" className="h-8" />
@@ -37,11 +46,11 @@ const Navbar = ({ setShowLogin }) => {
       </div>
 
       {/* MOBILE MENU BUTTON */}
-      <button className="md:hidden" onClick={() => setOpen(!open)}>
+      <button className="md:hidden" aria-label={open ? "Close navigation" : "Open navigation"} aria-expanded={open} onClick={() => setOpen(!open)}>
         <img
           src={open ? assets.close_icon : assets.menu_icon}
           alt="menu"
-          className="w-7"
+          className={`w-7 ${transparent ? "brightness-0 invert" : ""}`}
         />
       </button>
 
@@ -79,3 +88,4 @@ const Navbar = ({ setShowLogin }) => {
 };
 
 export default Navbar;
+

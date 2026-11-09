@@ -11,6 +11,8 @@ import ManageCar from "./pages/owner/ManageCar";
 import ManageBooking from "./pages/owner/ManageBooking";
 import AddCar from "./pages/owner/AddCar";
 import Login from "./components/Login";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
@@ -26,6 +28,8 @@ function App() {
         <Route path="/car-details/:id" element={<CarDetails />} />
         <Route path="/cars" element={<AllCars />} />
         <Route path="/my-bookings" element={<Mybooking />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login setShowLogin={setShowLogin} />} />
         
 
