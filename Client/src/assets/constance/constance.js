@@ -156,7 +156,7 @@ export const dummyCarData = [
         "model": "X5",
         "image": car_image1,
         "year": 2006,
-        "category": "SUV",
+        "category": "4WD & SUV Vehicles",
         "seating_capacity": 4,
         "fuel_type": "Hybrid",
         "transmission": "Semi-Automatic",
@@ -190,7 +190,7 @@ export const dummyCarData = [
         "model": "Wrangler",
         "image": car_image3,
         "year": 2023,
-        "category": "SUV",
+        "category": "4WD & SUV Vehicles",
         "seating_capacity": 4,
         "fuel_type": "Hybrid",
         "transmission": "Automatic",
@@ -307,6 +307,7 @@ export const dummyDashboardData = {
   monthlyRevenue: 840,
 };
  
+
 
 
 

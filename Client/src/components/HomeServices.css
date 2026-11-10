@@ -42,6 +42,7 @@
   gap: 16px;
   padding: clamp(24px, 2.6vw, 50px);
 }
+.home-services__content > div { min-width: 0; overflow-wrap: anywhere; }
 .home-services__content h2 {
   margin: 0;
   font-family: 'Arial Narrow', Impact, sans-serif;
@@ -64,22 +65,29 @@
 .home-services__card:hover .home-services__image { transform: scale(1.045); }
 .home-services__card:hover .home-services__arrow { background: #ff8c40; }
 .home-services__card:focus-visible { outline: 4px solid #ff6b12; outline-offset: -4px; }
+/* Keep large tablets proportional instead of filling a tall screen. */
+@media (min-width: 1024px) and (max-width: 1366px) {
+  .home-services { height: clamp(520px, 56vw, 680px); }
+}
 @media (max-width: 1100px) {
 
   .home-services__content { padding: 24px; gap: 12px; }
   .home-services__arrow { flex-basis: 42px; height: 42px; }
 }
-@media (max-width: 767px) {
+@media (max-width: 1023px) {
   .home-services { height: auto; min-height: 0; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: auto; }
   .home-services__card, .home-services__card--tall { grid-row: auto; min-height: 340px; }
   .home-services__content { padding: 22px; }
-  .home-services__content h2 { font-size: 27px; }
+  .home-services__content > div { min-width: 0; overflow-wrap: anywhere; }
+.home-services__content h2 { font-size: 27px; }
 }
-@media (max-width: 480px) {
+@media (max-width: 639px) {
   .home-services { grid-template-columns: 1fr; }
   .home-services__card { min-height: 320px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .home-services__image, .home-services__arrow { transition: none; }
 }
+
+
 

@@ -10,7 +10,7 @@ const benefits = [
 
 export default function AboutSection() {
   return (
-    <section className="overflow-hidden bg-white px-6 py-16 md:px-16 md:py-24" aria-labelledby="home-about-title">
+    <section className="overflow-hidden bg-white px-4 py-12 sm:px-6 lg:px-16 md:py-24" aria-labelledby="home-about-title">
       <div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-2 lg:gap-16">
         <div className="relative isolate flex min-h-64 items-center justify-center py-8 sm:min-h-80">
           <div aria-hidden="true" className="absolute inset-x-6 inset-y-8 -z-20 -rotate-6 rounded-[2.5rem] bg-gradient-to-br from-blue-100 via-blue-200 to-primary/70" />
@@ -32,3 +32,4 @@ export default function AboutSection() {
     </section>
   )
 }
+

@@ -11,7 +11,7 @@ const stats = [
 
 const ArrowButton = ({ onClick, disabled, className, children }) => (
     <button
-        onClick={onClick}
+        aria-label={className.includes("left") ? "Previous testimonials" : "Next testimonials"} onClick={onClick}
         disabled={disabled}
         className={`hidden md:flex absolute top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-blue-50 text-blue-600 shadow-sm items-center justify-center hover:bg-blue-100 disabled:opacity-40 transition cursor-pointer ${className}`}
     >
@@ -52,7 +52,7 @@ const Testimonial = () => {
                     Customer Reviews
                     <span className="w-10 h-px bg-blue-600" />
                 </p>
-                <h2 className="mt-4 text-3xl md:text-5xl font-extrabold text-slate-900">
+                <h2 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900">
                     What Our Customers <span className="text-blue-600">Say</span>
                 </h2>
                 <p className="mt-4 text-sm md:text-base text-gray-500 max-w-xl">
@@ -122,14 +122,14 @@ const Testimonial = () => {
                 <img
                     src={assets.hero_new}
                     alt=""
-                    className="hidden lg:block absolute right-0 bottom-0 h-full w-[40%] object-cover [mask-image:linear-gradient(to_right,transparent,black_45%)]"
+                    className="hidden xl:block absolute right-0 bottom-0 h-full w-[40%] object-cover [mask-image:linear-gradient(to_right,transparent,black_45%)]"
                 />
                 {/* Blue swoosh bottom-left */}
                 <div className="absolute -left-24 -bottom-24 w-96 h-48 rounded-[50%] border-t-[28px] border-blue-600/80 rotate-12" />
 
-                <div className="relative max-w-6xl mx-auto px-4 py-12 lg:pr-[38%] grid grid-cols-2 md:grid-cols-4 gap-y-8">
+                <div className="relative max-w-6xl mx-auto px-4 py-12 xl:pr-[38%] grid grid-cols-2 sm:grid-cols-4 gap-x-3 gap-y-8">
                     {stats.map(({ icon: Icon, value, label }, index) => (
-                        <div key={label} className={`flex flex-col items-center text-center ${index > 0 ? "md:border-l border-gray-200" : ""}`}>
+                        <div key={label} className={`flex flex-col items-center text-center ${index > 0 ? "sm:border-l border-gray-200" : ""}`}>
                             <Icon className="w-9 h-9 text-blue-600" strokeWidth={1.75} />
                             <p className="mt-3 text-2xl font-bold text-slate-900">{value}</p>
                             <p className="text-sm text-gray-500">{label}</p>
@@ -142,6 +142,7 @@ const Testimonial = () => {
 }
 
 export default Testimonial
+
 
 
 

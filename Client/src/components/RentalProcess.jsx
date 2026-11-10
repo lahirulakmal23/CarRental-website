@@ -9,15 +9,14 @@ const steps = [
 
 export default function RentalProcess() {
   return (
-    <section className="overflow-hidden bg-slate-900 px-6 py-16 text-white md:px-16 md:py-20" aria-labelledby="rental-process-title">
+    <section className="overflow-hidden bg-slate-900 px-4 py-12 text-white sm:px-6 lg:px-16 md:py-20" aria-labelledby="rental-process-title">
       <div className="mx-auto max-w-7xl">
         <div className="text-center">
           <p className="inline-block rounded-md bg-primary/15 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-blue-300">How It Works</p>
           <h2 id="rental-process-title" className="mt-4 text-3xl font-extrabold md:text-4xl">Our Easy Rental Process</h2>
           <p className="mt-3 text-sm text-slate-400 md:text-base">Simple steps to get you on the road.</p>
         </div>
-        <ol className="relative mt-12 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
-          <div aria-hidden="true" className="pointer-events-none absolute left-[12.5%] right-[12.5%] top-14 hidden border-t border-dashed border-slate-500 lg:block" />
+        <div className="relative mt-12"><div aria-hidden="true" className="pointer-events-none absolute left-[12.5%] right-[12.5%] top-14 hidden border-t border-dashed border-slate-500 lg:block" /><ol className="relative grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
           {steps.map(({ icon: Icon, title, description }, index) => (
             <li key={title} className="relative text-center">
               <div className="relative mx-auto flex h-28 w-28 items-center justify-center rounded-full border-8 border-slate-900 bg-primary shadow-[0_0_0_1px_rgba(96,165,250,0.25)]">
@@ -28,8 +27,9 @@ export default function RentalProcess() {
               <p className="mx-auto mt-2 max-w-60 text-sm leading-relaxed text-slate-400">{description}</p>
             </li>
           ))}
-        </ol>
+        </ol></div>
       </div>
     </section>
   )
 }
+

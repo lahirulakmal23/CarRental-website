@@ -7,7 +7,7 @@ export const addCarValidator = [
     .isInt({ min: 1990, max: new Date().getFullYear() + 1 })
     .withMessage("Enter a valid year"),
   body("category")
-    .isIn(["Sedan", "SUV", "Hatchback", "Luxury", "Van"])
+    .isIn(["Luxury Cars", "Classic and Vintage", "4WD & SUV Vehicles", "Wedding Cars", "Sedan", "SUV", "Hatchback", "Luxury", "Van"])
     .withMessage("Invalid category"),
   body("pricePerDay")
     .isFloat({ min: 0 })

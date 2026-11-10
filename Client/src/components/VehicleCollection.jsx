@@ -12,11 +12,11 @@ export default function VehicleCollection() {
   const vehicles = dummyCarData.filter((car) => category === 'All Vehicles' || car.category === category)
 
   return (
-    <section className="bg-slate-50 px-6 py-16 md:px-16 md:py-20" aria-labelledby="vehicle-collection-title">
+    <section className="bg-slate-50 px-4 py-12 sm:px-6 lg:px-16 md:py-20" aria-labelledby="vehicle-collection-title">
       <div className="mx-auto max-w-7xl">
         <div className="text-center">
           <p className="flex items-center justify-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-primary"><Car className="h-4 w-4" /> Our Collection</p>
-          <h2 id="vehicle-collection-title" className="mt-4 text-3xl font-extrabold leading-tight text-gray-900 md:text-5xl">Discover Premium <span className="text-primary">Vehicles</span></h2>
+          <h2 id="vehicle-collection-title" className="mt-4 text-3xl font-extrabold leading-tight text-gray-900 sm:text-4xl lg:text-5xl">Discover Premium <span className="text-primary">Vehicles</span></h2>
           <p className="mt-4 text-sm text-gray-500 md:text-base">Choose a car that fits your plans, your style, and your budget.</p>
         </div>
 
@@ -69,4 +69,5 @@ export default function VehicleCollection() {
     </section>
   )
 }
+
 

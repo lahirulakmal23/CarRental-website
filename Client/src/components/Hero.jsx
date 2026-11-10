@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { assets } from "../assets/constance/constance";
 import SearchBar from "./SearchBar";
+import weddingImage from '../assets/images/weddingcar1.jpg';
 
 const slides = [
+  { image: weddingImage, label: "Wedding car for your special day" },
   { image: assets.hero_new, label: "Audi on a scenic mountain road" },
   { image: assets.car_image4, label: "Blue sports car on an open road" },
   { image: assets.car_image1, label: "BMW ready for your next journey" },
@@ -51,7 +53,7 @@ const Hero = () => {
         <div className="absolute inset-0 -z-10 bg-gradient-to-r from-black/85 via-black/50 to-transparent" />
         <div className="absolute inset-x-0 bottom-0 -z-10 h-40 bg-gradient-to-t from-black/70 to-transparent" />
 
-        <div className="relative px-6 md:px-16 pt-36 md:pt-44 pb-48">
+        <div className="relative px-4 sm:px-6 lg:px-16 pt-36 md:pt-44 pb-48">
           <p className="text-xs md:text-sm font-semibold tracking-[0.2em] text-gray-200 uppercase mb-4">Car Rental Service</p>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white leading-tight">Explore More<br /><span className="text-blue-500">Drive Freely</span></h1>
           <p className="text-gray-200 text-sm md:text-base leading-relaxed max-w-md mt-5">Rent the perfect car for your journey. Affordable rates, flexible plans and a smooth experience &mdash; only at CarRental.</p>
@@ -76,5 +78,8 @@ const Hero = () => {
 };
 
 export default Hero;
+
+
+
 
 

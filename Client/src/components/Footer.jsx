@@ -8,7 +8,7 @@ const Footer = () => {
   const socials = [FaFacebookF, FaInstagram, FaXTwitter, FaLinkedinIn]
 
   return (
-      <footer className='bg-[#0b1220] text-gray-400 pt-14 px-6 md:px-16 lg:px-24 xl:px-32'>
+      <footer className='bg-[#0b1220] text-gray-400 pt-14 px-4 sm:px-6 lg:px-16 lg:px-24 xl:px-32'>
             <div className='max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10'>
                 <div className='max-w-72'>
                     <img src={assets.logo} alt="logo" className='mb-4 h-8 brightness-0 invert' />
@@ -71,3 +71,4 @@ const Footer = () => {
 }
 
 export default Footer
+

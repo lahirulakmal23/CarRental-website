@@ -20,14 +20,14 @@ const Navbar = ({ setShowLogin }) => {
     }`;
 
   return (
-    <div className={`flex justify-between items-center px-6 md:px-16 py-4 fixed top-0 left-0 w-full z-50 transition-colors duration-300 ${transparent ? "bg-transparent" : "bg-white shadow-md"}`}>
+    <div className={`flex justify-between items-center px-4 sm:px-6 lg:px-16 py-4 fixed top-0 left-0 w-full z-50 transition-colors duration-300 ${transparent ? "bg-transparent" : "bg-white shadow-md"}`}>
       {/* LOGO - left */}
-      <Link to="/" className="md:flex-1">
-        <img src={assets.logo} alt="logo" className="h-8" />
+      <Link to="/" className="lg:flex-1">
+        <img src={assets.logo} alt="logo" className="h-8 max-w-[160px] object-contain" />
       </Link>
 
       {/* NAV LINKS - middle */}
-      <div className="hidden md:flex items-center gap-10">
+      <div className="hidden lg:flex items-center gap-6 xl:gap-10">
         {menuLinks.map((link) => (
           <NavLink key={link.name} to={link.path} end className={linkClass}>
             {link.name}
@@ -36,7 +36,7 @@ const Navbar = ({ setShowLogin }) => {
       </div>
 
       {/* LOGIN - right */}
-      <div className="hidden md:flex flex-1 justify-end">
+      <div className="hidden lg:flex flex-1 justify-end">
         <button
           onClick={() => setShowLogin(true)}
           className="cursor-pointer px-6 py-2 bg-primary hover:bg-primary-dull text-white rounded-lg"
@@ -46,7 +46,7 @@ const Navbar = ({ setShowLogin }) => {
       </div>
 
       {/* MOBILE MENU BUTTON */}
-      <button className="md:hidden" aria-label={open ? "Close navigation" : "Open navigation"} aria-expanded={open} onClick={() => setOpen(!open)}>
+      <button className="lg:hidden" aria-label={open ? "Close navigation" : "Open navigation"} aria-expanded={open} aria-controls="main-mobile-menu" onClick={() => setOpen(!open)}>
         <img
           src={open ? assets.close_icon : assets.menu_icon}
           alt="menu"
@@ -56,7 +56,9 @@ const Navbar = ({ setShowLogin }) => {
 
       {/* MOBILE MENU */}
       <div
-        className={`md:hidden fixed top-16 right-0 h-screen w-64 bg-white shadow-lg p-5 transition-all duration-300
+        id="main-mobile-menu"
+        inert={!open}
+        className={`lg:hidden fixed top-16 right-0 h-[calc(100dvh-4rem)] w-72 max-w-full overflow-y-auto bg-white shadow-lg p-5 transition-all duration-300
         ${open ? "translate-x-0" : "translate-x-full"}`}
       >
         {menuLinks.map((link) => (
@@ -88,4 +90,5 @@ const Navbar = ({ setShowLogin }) => {
 };
 
 export default Navbar;
+
 

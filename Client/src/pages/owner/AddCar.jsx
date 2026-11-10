@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { carCategories } from '../../assets/constance/carCategories';
 import { assets } from '../../assets/constance/constance';
 import { MdDirectionsCar, MdCloudUpload, MdCheck } from 'react-icons/md';
 
@@ -118,10 +119,7 @@ const AddCar = () => {
             <Field label="Category">
               <select value={car.category} onChange={set('category')} className={selectCls}>
                 <option value="">Select</option>
-                <option value="car">Car</option>
-                <option value="SUV">SUV</option>
-                <option value="sedan">Sedan</option>
-                <option value="van">Van</option>
+                {carCategories.map(({ name }) => <option key={name} value={name}>{name}</option>)}
               </select>
             </Field>
             <Field label="Transmission">
