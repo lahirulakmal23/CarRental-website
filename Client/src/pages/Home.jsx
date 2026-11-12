@@ -5,6 +5,7 @@ import VehicleCollection from '../components/VehicleCollection.jsx'
 import AboutSection from '../components/AboutSection.jsx'
 import RentalProcess from '../components/RentalProcess.jsx'
 import Testimonial from '../components/Testimonial.jsx'
+import BlogSection from '../components/BlogSection.jsx'
 import Footer from '../components/Footer.jsx'
 import HomeServices from '../components/HomeServices.jsx'
 
@@ -18,12 +19,14 @@ const Home = () => {
       <AboutSection />
       <HomeServices />
       <Testimonial />
+      <BlogSection />
       <Footer />
     </div>
   )
 }
 
 export default Home
+
 
 
 

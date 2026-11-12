@@ -1,3 +1,4 @@
+import { FiX, FiCheck } from 'react-icons/fi';
 import { fmt, daysBetween } from "../../utils/bookingHelpers";
 
 const DetailItem = ({ label, value, highlight }) => (
@@ -28,7 +29,7 @@ const ApproveModal = ({ booking, onAction, onClose }) => {
             <h3 className="text-base font-bold text-gray-900 m-0">Review Booking Request</h3>
             <button
               onClick={onClose}
-              className="bg-transparent border-none cursor-pointer text-gray-400 text-xl leading-none p-[2px] hover:text-gray-600 transition-colors"
+              aria-label="Close booking review" className="bg-transparent border-none cursor-pointer text-gray-400 text-xl leading-none p-[2px] hover:text-gray-600 transition-colors"
             >
               ×
             </button>

@@ -1,3 +1,4 @@
+import { FiSearch, FiBell, FiSettings, FiDownload, FiClock, FiTrendingUp, FiTrendingDown } from 'react-icons/fi';
 import { useEffect, useState } from "react";
 import { dummyDashboardData }  from "../../assets/constance/constance";
 import { buildStatCards, buildFleetRows, QUICK_ACTIONS } from "../../assets/constance/dashboardConfig";
@@ -8,7 +9,7 @@ import MonthlyChart        from "../../components/dashboard/MonthlyChart";
 import SectionCard         from "../../components/dashboard/SectionCard";
 
 // ─── Stat Card ────────────────────────────────────────────────────────────────
-const StatCard = ({ title, value, sub, accent, icon, trend }) => (
+const StatCard = ({ title, value, sub, accent = "#2563eb", icon: Icon, trend }) => (
   <div className="bg-white rounded-2xl p-[22px] border border-gray-100 shadow-sm flex flex-col gap-3 relative overflow-hidden">
     <div className="absolute top-0 left-0 right-0 h-[3px] rounded-t-2xl" style={{ background: accent }} />
     <div className="flex items-start justify-between">
@@ -18,13 +19,13 @@ const StatCard = ({ title, value, sub, accent, icon, trend }) => (
         {sub && <p className="text-[11px] text-gray-400 mt-1">{sub}</p>}
       </div>
       <div className="w-11 h-11 rounded-xl flex items-center justify-center text-xl shrink-0" style={{ background: accent + "18" }}>
-        {icon}
+        <Icon aria-hidden="true" className="h-5 w-5" style={{ color: accent }} />
       </div>
     </div>
     {trend != null && trend !== 0 && (
       <div className="flex items-center gap-[5px] text-[12px]">
         <span className={`font-semibold ${trend > 0 ? "text-green-600" : "text-red-600"}`}>
-          {trend > 0 ? "↑" : "↓"} {Math.abs(trend)}%
+          {trend > 0 ? <FiTrendingUp aria-hidden="true" className="inline" /> : <FiTrendingDown aria-hidden="true" className="inline" />} {Math.abs(trend)}%
         </span>
         <span className="text-gray-400">vs last month</span>
       </div>
@@ -71,17 +72,14 @@ const Dashboard = () => {
       <div className="px-7 pt-5 pb-6 bg-[#f8f9fb] border-b border-gray-100">
         <div className="flex items-center justify-between mb-5">
           <div className="relative w-60">
-            <svg className="absolute left-[11px] top-1/2 -translate-y-1/2 pointer-events-none"
-              width="14" height="14" fill="none" stroke="#9ca3af" strokeWidth="2" viewBox="0 0 24 24">
-              <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
-            </svg>
+            <FiSearch aria-hidden="true" className="absolute left-[11px] top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-gray-400 pointer-events-none" />
             <input type="text" placeholder="Search anything…"
               className="w-full py-2 pl-8 pr-3 text-[13px] bg-white border border-gray-200 rounded-lg text-gray-700 outline-none placeholder:text-gray-400 focus:border-indigo-400 transition-colors"
             />
           </div>
           <div className="flex items-center gap-2">
-            <button className="w-9 h-9 rounded-lg bg-white border border-gray-200 text-gray-500 flex items-center justify-center cursor-pointer text-base hover:bg-gray-50 transition-colors">🔔</button>
-            <button className="w-9 h-9 rounded-lg bg-white border border-gray-200 text-gray-500 flex items-center justify-center cursor-pointer text-base hover:bg-gray-50 transition-colors">⚙️</button>
+            <button aria-label="Notifications" className="w-9 h-9 rounded-lg bg-white border border-gray-200 text-gray-500 flex items-center justify-center cursor-pointer text-base hover:bg-gray-50 transition-colors"><FiBell aria-hidden="true" className="h-4 w-4" /></button>
+            <button aria-label="Settings" className="w-9 h-9 rounded-lg bg-white border border-gray-200 text-gray-500 flex items-center justify-center cursor-pointer text-base hover:bg-gray-50 transition-colors"><FiSettings aria-hidden="true" className="h-4 w-4" /></button>
             <div className="w-9 h-9 rounded-lg flex items-center justify-center font-bold text-[13px] text-white cursor-pointer"
               style={{ background: "linear-gradient(135deg,#6366f1,#8b5cf6)" }}>O</div>
           </div>
@@ -93,7 +91,7 @@ const Dashboard = () => {
             <p className="text-[13px] text-gray-500 mt-1 mb-0">Here's what's happening with your fleet today.</p>
           </div>
           <button className="flex items-center gap-[7px] bg-indigo-500 text-white border-none px-4 py-[9px] rounded-lg text-[12px] font-semibold cursor-pointer hover:bg-indigo-600 transition-colors">
-            ⬇ Download Report
+            <FiDownload aria-hidden="true" className="h-4 w-4" /> Download Report
           </button>
         </div>
       </div>
@@ -110,7 +108,7 @@ const Dashboard = () => {
         {/* Pending Banner */}
         {data.pendingBooking > 0 && (
           <div className="bg-yellow-50 border border-yellow-300 rounded-xl px-4 py-3 mb-5 flex items-center gap-[10px] text-[13px] text-yellow-800">
-            <span>⏳</span>
+            <FiClock aria-hidden="true" className="h-4 w-4 shrink-0" />
             <span><strong>{data.pendingBooking} booking{data.pendingBooking !== 1 ? "s" : ""}</strong> waiting for your approval.</span>
           </div>
         )}
@@ -148,10 +146,10 @@ const Dashboard = () => {
           {/* Quick Actions */}
           <SectionCard title="Quick Actions" sub="Common tasks">
             <div className="px-[22px] py-4 grid grid-cols-2 gap-[10px]">
-              {QUICK_ACTIONS.map(({ label, icon, accent, bg }) => (
+              {QUICK_ACTIONS.map(({ label, icon: Icon, accent, bg }) => (
                 <button key={label}
                   className={`flex flex-col items-start gap-2 p-4 rounded-xl border-none cursor-pointer text-left transition-all hover:-translate-y-[2px] hover:shadow-md ${bg}`}>
-                  <span className="text-[22px]">{icon}</span>
+                  <Icon aria-hidden="true" className={`h-6 w-6 ${accent}`} />
                   <span className={`text-[12px] font-semibold ${accent}`}>{label}</span>
                 </button>
               ))}
@@ -165,3 +163,4 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+

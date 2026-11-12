@@ -38,10 +38,10 @@ const Navbar = ({ setShowLogin }) => {
       {/* LOGIN - right */}
       <div className="hidden lg:flex flex-1 justify-end">
         <button
-          onClick={() => setShowLogin(true)}
+          onClick={() => setShowLogin('register')}
           className="cursor-pointer px-6 py-2 bg-primary hover:bg-primary-dull text-white rounded-lg"
         >
-          Login
+          Sign Up
         </button>
       </div>
 
@@ -78,11 +78,11 @@ const Navbar = ({ setShowLogin }) => {
         <button
           className="mt-6 w-full py-2 bg-primary text-white rounded-lg"
           onClick={() => {
-            setShowLogin(true);
+            setShowLogin('register');
             setOpen(false);
           }}
         >
-          Login
+          Sign Up
         </button>
       </div>
     </div>
@@ -90,5 +90,6 @@ const Navbar = ({ setShowLogin }) => {
 };
 
 export default Navbar;
+
 
 

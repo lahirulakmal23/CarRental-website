@@ -1,3 +1,4 @@
+import { FiUser, FiEye } from 'react-icons/fi';
 import { fmt, daysBetween } from "../../utils/bookingHelpers";
 import BookingStatusBadge from "./BookingStatusBadge";
 import PaymentBadge from "./PaymentBadge";
@@ -42,16 +43,16 @@ const BookingRow = ({ booking, currency, onReview, onCancel, isLast }) => {
         </div>
       </td>
 
-      {/* Date Range */}
-      <td className="px-4 py-[14px] text-[12px] text-gray-700">
-        <div className="font-medium">{fmt(booking.pickupDate)}</div>
-        <div className="text-gray-400 text-[11px] my-[2px]">→</div>
-        <div className="font-medium">{fmt(booking.returnDate)}</div>
-        <span className="mt-1 inline-block bg-gray-100 rounded-full px-[7px] py-[1px] text-[10px] font-semibold text-gray-500">
-          {days}d
-        </span>
+      {/* Booking Date */}
+      <td className="px-4 py-[14px] text-[12px] font-medium text-gray-700 whitespace-nowrap">
+        {fmt(booking.pickupDate)}
       </td>
 
+      {/* Return Date */}
+      <td className="px-4 py-[14px] text-[12px] text-gray-700 whitespace-nowrap">
+        <div className="font-medium">{fmt(booking.returnDate)}</div>
+        <span className="mt-1 inline-block bg-gray-100 rounded-full px-[7px] py-[1px] text-[10px] font-semibold text-gray-500">{days}d</span>
+      </td>
       {/* Total */}
       <td className="px-4 py-[14px]">
         <div className="font-bold text-[14px] text-gray-900">
@@ -79,7 +80,7 @@ const BookingRow = ({ booking, currency, onReview, onCancel, isLast }) => {
             onClick={() => onReview(booking)}
             className="flex items-center gap-[5px] px-3 py-[6px] text-[11px] font-bold bg-indigo-500 text-white border-none rounded-lg cursor-pointer whitespace-nowrap hover:bg-indigo-600 transition-colors"
           >
-            <span className="text-[13px]">⚡</span> Review
+            <FiEye aria-hidden="true" className="h-3.5 w-3.5" /> Review
           </button>
         ) : isConfirmed ? (
           <button
@@ -97,3 +98,5 @@ const BookingRow = ({ booking, currency, onReview, onCancel, isLast }) => {
 };
 
 export default BookingRow;
+
+

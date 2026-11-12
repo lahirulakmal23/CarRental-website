@@ -1,57 +1,39 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from 'react-router-dom'
+import { ArrowRight, Fuel, Gauge, Settings2, Users } from 'lucide-react'
 
-const CarCard = ({ car }) => {
-  const currencySymbol = import.meta.env.VITE_CURRENCY || "$";
-  const navigate = useNavigate();
-
+export default function CarCard({ car }) {
+  const currency = import.meta.env.VITE_CURRENCY || '$'
   return (
-    <div className="bg-white border border-gray-100 rounded-xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col">
-      {/* Image */}
-      <div
-        onClick={() => navigate(`/car-details/${car._id}`)}
-        className="relative bg-gray-50 h-40 overflow-hidden cursor-pointer"
-      >
-        <img
-          src={car.image}
-          alt={`${car.brand} ${car.model}`}
-          className="w-full h-full object-cover"
-        />
-        {!car.isAvaliable && (
-          <span className="absolute top-3 left-3 bg-gray-900/80 text-white text-xs px-3 py-1 rounded-full">
-            Not Available
-          </span>
-        )}
-      </div>
+            <Link to={`/car-details/${car._id}`} className="group flex flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-shadow hover:shadow-lg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary">
+              <div className="flex flex-wrap items-start justify-between gap-3 px-6 pt-6">
+                <h3 className="font-semibold text-gray-900">{car.brand.trim()} {car.model}</h3>
+                <p className="text-gray-500"><span className="text-xl font-bold text-primary">{currency}{car.pricePerDay}</span><span className="text-xs"> / day</span></p>
+              </div>
+              <div className="mx-6 my-5 overflow-hidden rounded-xl bg-slate-50">
+                <img src={car.image} alt={`${car.brand.trim()} ${car.model}`} loading="lazy" className="h-44 w-full object-cover motion-safe:transition-transform motion-safe:duration-300 motion-safe:group-hover:scale-105" />
+              </div>
+              <div className="px-6 pb-6">
+                <div className="mb-4 flex items-center justify-between gap-2 text-xs">
+                  <span className="text-gray-500">{car.year} &middot; {car.category}</span>
+                  <span className={`rounded-full px-2.5 py-1 font-medium ${car.isAvaliable ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'}`}>{car.isAvaliable ? 'Available' : 'Unavailable'}</span>
+                </div>
+                <dl className="grid grid-cols-2 gap-x-3 gap-y-5 border-t border-gray-100 pt-5">
+                  {[
+                    { icon: Users, label: 'Seats', value: `${car.seating_capacity} passengers` },
+                    { icon: Settings2, label: 'Gearbox', value: car.transmission },
+                    { icon: Gauge, label: 'Year', value: car.year },
+                    { icon: Fuel, label: 'Fuel Type', value: car.fuel_type },
+                  ].map(({ icon: Icon, label, value }) => (
+                    <div key={label} className="flex items-center gap-2.5">
+                      <Icon aria-hidden="true" className="h-5 w-5 shrink-0 text-primary" strokeWidth={1.5} />
+                      <div><dt className="text-[11px] text-gray-400">{label}</dt><dd className="mt-0.5 text-xs font-medium text-gray-700">{value}</dd></div>
+                    </div>
+                  ))}
+                </dl>
+                <div className="mt-6 flex items-center justify-between border-t border-gray-100 pt-4 text-sm font-semibold text-primary">View Vehicle <ArrowRight aria-hidden="true" className="h-4 w-4" /></div>
+              </div>
+            </Link>
+  )
+}
 
-      {/* Content */}
-      <div className="p-4 flex flex-col flex-1">
-        <h3 className="font-semibold text-gray-900">
-          {car.brand} {car.model}
-        </h3>
-        <p className="text-xs text-gray-500 mt-1">
-          {car.category} <span className="mx-1">|</span>
-          {car.seating_capacity} Seats <span className="mx-1">|</span>
-          {car.transmission}
-        </p>
 
-        <p className="mt-4 mb-4">
-          <span className="text-xl font-bold text-blue-600">
-            {currencySymbol}
-            {car.pricePerDay}
-          </span>
-          <span className="text-sm text-gray-500"> / day</span>
-        </p>
-
-        <button
-          onClick={() => navigate(`/car-details/${car._id}`)}
-          className="mt-auto w-full bg-blue-600 hover:bg-blue-700 transition text-white text-sm font-semibold py-2 rounded-lg cursor-pointer"
-        >
-          Book Now
-        </button>
-      </div>
-    </div>
-  );
-};
-
-export default CarCard;

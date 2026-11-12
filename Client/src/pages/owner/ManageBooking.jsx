@@ -1,3 +1,4 @@
+import { FiClipboard, FiClock, FiCheckCircle, FiDollarSign, FiSearch, FiX } from 'react-icons/fi';
 import { useState } from "react";
 import useToast from "../../hooks/useToast";
 import useBookings from "../../hooks/useBookings";
@@ -8,11 +9,11 @@ import ApproveModal from "../../components/bookings/ApproveModal";
 import { STATUS } from "../../assets/constance/bookingconfig";
 
 // ─── Stat Card ────────────────────────────────────────────────────────────────
-const StatCard = ({ label, value, color, icon }) => (
+const StatCard = ({ label, value, color, icon: Icon }) => (
   <div className="bg-white border border-gray-100 rounded-xl px-[18px] py-4 flex-1 min-w-[110px] flex flex-col gap-[6px]">
     <div className="flex items-center justify-between">
       <span className="text-[11px] font-semibold text-gray-400 uppercase tracking-[0.5px]">{label}</span>
-      <span className="text-lg">{icon}</span>
+      <Icon aria-hidden="true" className={`h-5 w-5 ${color ?? "text-primary"}`} />
     </div>
     <div className={`text-[24px] font-bold leading-none ${color ?? "text-gray-900"}`}>{value}</div>
   </div>
@@ -55,12 +56,7 @@ const Toolbar = ({ search, setSearch, statusFilter, setStatusFilter, bookings, f
   <div className="flex gap-[10px] mb-4 flex-wrap items-center">
     {/* Search */}
     <div className="relative flex-1 min-w-[180px]">
-      <svg
-        className="absolute left-[10px] top-1/2 -translate-y-1/2 pointer-events-none"
-        width="14" height="14" fill="none" stroke="#9ca3af" strokeWidth="2" viewBox="0 0 24 24"
-      >
-        <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
-      </svg>
+      <FiSearch aria-hidden="true" className="absolute left-[10px] top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-gray-400 pointer-events-none" />
       <input
         type="text"
         placeholder="Search by car or customer…"
@@ -70,7 +66,7 @@ const Toolbar = ({ search, setSearch, statusFilter, setStatusFilter, bookings, f
       />
       {search && (
         <button
-          onClick={() => setSearch("")}
+          aria-label="Clear search" onClick={() => setSearch("")}
           className="absolute right-2 top-1/2 -translate-y-1/2 bg-transparent border-none cursor-pointer text-gray-400 text-base leading-none"
         >
           ×
@@ -91,29 +87,11 @@ const Toolbar = ({ search, setSearch, statusFilter, setStatusFilter, bookings, f
 );
 
 // ─── Pending Alert Banner ─────────────────────────────────────────────────────
-const PendingBanner = ({ count, onShowPending }) => {
-  if (!count) return null;
-  return (
-    <div className="bg-yellow-50 border border-yellow-300 rounded-xl px-4 py-3 mb-5 flex items-center gap-[10px] text-[13px] text-yellow-800">
-      <span className="text-lg">⏳</span>
-      <span>
-        <strong>{count} booking{count !== 1 ? "s" : ""}</strong> waiting for your review.{" "}
-        <button
-          onClick={onShowPending}
-          className="bg-transparent border-none cursor-pointer text-yellow-700 font-bold underline text-[13px] p-0 hover:text-yellow-900"
-        >
-          Show pending →
-        </button>
-      </span>
-    </div>
-  );
-};
-
 // ─── Empty State ──────────────────────────────────────────────────────────────
 const EmptyState = ({ hasFilters, onClear }) => (
   <tr>
-    <td colSpan={6} className="py-[52px] text-center text-gray-400">
-      <div className="text-[36px] mb-[10px]">📋</div>
+    <td colSpan={7} className="py-[52px] text-center text-gray-400">
+      <FiClipboard aria-hidden="true" className="mx-auto mb-[10px] h-9 w-9" />
       <div className="font-semibold text-[14px] mb-1">No bookings found</div>
       <div className="text-[12px]">
         {hasFilters ? "Try adjusting your filters" : "No bookings yet"}
@@ -183,14 +161,12 @@ const ManageBooking = () => {
 
       {/* Stats */}
       <div className="flex gap-3 mb-6 flex-wrap">
-        <StatCard label="Total Bookings"  value={bookings.length}                                        icon="📋" />
-        <StatCard label="Pending Review"  value={pendingCount}   color={pendingCount > 0 ? "text-yellow-700" : "text-gray-900"} icon="⏳" />
-        <StatCard label="Confirmed"       value={confirmedCount} color="text-green-700"                  icon="✅" />
-        <StatCard label="Revenue"         value={`${currency}${totalRevenue.toLocaleString()}`} color="text-indigo-500" icon="💰" />
+        <StatCard label="Total Bookings"  value={bookings.length}                                        icon={FiClipboard} />
+        <StatCard label="Pending Review"  value={pendingCount}   color={pendingCount > 0 ? "text-yellow-700" : "text-gray-900"} icon={FiClock} />
+        <StatCard label="Confirmed"       value={confirmedCount} color="text-green-700"                  icon={FiCheckCircle} />
+        <StatCard label="Revenue"         value={`${currency}${totalRevenue.toLocaleString()}`} color="text-indigo-500" icon={FiDollarSign} />
       </div>
 
-      {/* Pending Banner */}
-      <PendingBanner count={pendingCount} onShowPending={() => setStatusFilter("pending")} />
 
       {/* Toolbar */}
       <Toolbar
@@ -204,10 +180,11 @@ const ManageBooking = () => {
 
       {/* Table */}
       <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm">
-        <table className="w-full border-collapse text-[13px]">
+        <div className="overflow-x-auto">
+        <table className="min-w-[960px] w-full border-collapse text-[13px]">
           <thead>
             <tr className="bg-gray-50 border-b border-gray-100">
-              {["Car & Customer", "Date Range", "Total", "Payment", "Status", "Actions"].map((h) => (
+              {["Car & Customer", "Booking Date", "Return Date", "Total", "Payment", "Status", "Actions"].map((h) => (
                 <th
                   key={h}
                   className="px-4 py-[11px] text-left font-semibold text-[11px] text-gray-400 uppercase tracking-[0.5px]"
@@ -237,6 +214,7 @@ const ManageBooking = () => {
             )}
           </tbody>
         </table>
+        </div>
 
         {filtered.length > 0 && (
           <TableFooter filtered={filtered} total={bookings.length} currency={currency} />
@@ -258,3 +236,5 @@ const ManageBooking = () => {
 };
 
 export default ManageBooking;
+
+

@@ -12,7 +12,7 @@ export const MONTHLY_DATA = [
   { month: "Nov", bookings: 35, revenue: 4900 },
   { month: "Dec", bookings: 44, revenue: 6200 },
 ];
-import { FaCar } from "react-icons/fa";
+import { FiTruck, FiClipboard, FiClock, FiCheckCircle, FiDollarSign, FiPlusCircle, FiDownload } from "react-icons/fi";
 
 export const BOOKING_STATUS_MAP = {
   Confirmed: { bg: "bg-blue-50",   color: "text-blue-700" },
@@ -27,22 +27,22 @@ export const CHART_TABS = [
 ];
 
 export const QUICK_ACTIONS = [
-  { label: "Add New Car",     icon: "🚗", accent: "text-indigo-600", bg: "bg-indigo-50" },
-  { label: "View Bookings",   icon: "📋", accent: "text-sky-600",    bg: "bg-sky-50"    },
-  { label: "Pending Reviews", icon: "⏳", accent: "text-yellow-600", bg: "bg-yellow-50" },
-  { label: "Download Report", icon: "⬇",  accent: "text-green-600",  bg: "bg-green-50"  },
+  { label: "Add New Car",     icon: FiPlusCircle, accent: "text-indigo-600", bg: "bg-indigo-50" },
+  { label: "View Bookings",   icon: FiClipboard, accent: "text-sky-600",    bg: "bg-sky-50"    },
+  { label: "Pending Reviews", icon: FiClock, accent: "text-yellow-600", bg: "bg-yellow-50" },
+  { label: "Download Report", icon: FiDownload,  accent: "text-green-600",  bg: "bg-green-50"  },
 ];
 
 export const buildStatCards = (data, currency) => [
-  { title: "Total Cars",     value: data.totalCars,      sub: "in your fleet",      icon: "🚗", trend: 0    },
-  { title: "Total Bookings", value: data.totalBooking,   sub: "all time",            icon: "📋", trend: 12   },
-  { title: "Pending",        value: data.pendingBooking, sub: "awaiting review",    icon: "⏳", trend: null },
-  { title: "Completed",      value: data.completeBooking,sub: "successful rentals",  icon: "✅", trend: 8    },
+  { title: "Total Cars",     value: data.totalCars,      sub: "in your fleet",      icon: FiTruck, trend: 0    },
+  { title: "Total Bookings", value: data.totalBooking,   sub: "all time",            icon: FiClipboard, trend: 12   },
+  { title: "Pending",        value: data.pendingBooking, sub: "awaiting review",    icon: FiClock, trend: null },
+  { title: "Completed",      value: data.completeBooking,sub: "successful rentals",  icon: FiCheckCircle, trend: 8    },
   {
     title: "Total Earnings",
     value: `${currency}${(data.totalEarning || data.monthlyRevenue || 0).toLocaleString()}`,
     sub: "confirmed bookings",
-    icon: "💰",
+    icon: FiDollarSign,
     trend: 18,
   },
 ];

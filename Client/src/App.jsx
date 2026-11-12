@@ -13,6 +13,7 @@ import AddCar from "./pages/owner/AddCar";
 import Login from "./components/Login";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
+import Blog from "./pages/Blog";
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
@@ -20,7 +21,7 @@ function App() {
 
   return (
     <div className="App">
-     {showLogin && <Login setShowLogin={setShowLogin} />}
+     {showLogin && <Login setShowLogin={setShowLogin} initialState={showLogin === "register" ? "register" : "login"} />}
 
       {!isOwnerPath && <Navbar setShowLogin={setShowLogin} />}
       <Routes>
@@ -30,6 +31,8 @@ function App() {
         <Route path="/my-bookings" element={<Mybooking />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/blog/:slug" element={<Blog />} />
         <Route path="/login" element={<Login setShowLogin={setShowLogin} />} />
         
 
@@ -48,3 +51,5 @@ function App() {
 }
 
 export default App;
+
+

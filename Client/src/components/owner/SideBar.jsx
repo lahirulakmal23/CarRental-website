@@ -1,10 +1,13 @@
+import { FiGrid, FiPlusCircle, FiTruck, FiClipboard, FiEdit2, FiCheck, FiLogOut } from 'react-icons/fi';
 import React, { useState } from "react";
-import { assets, dummyUserData, ownerMenuLinks } from "../../assets/constance/constance";
-import { NavLink, useLocation } from "react-router-dom";
+import { dummyUserData, ownerMenuLinks } from "../../assets/constance/constance";
+import { NavLink } from "react-router-dom";
+
+const menuIcons = { '/owner': FiGrid, '/owner/add-car': FiPlusCircle, '/owner/manage-cars': FiTruck, '/owner/manage-bookings': FiClipboard };
 
 const SideBar = () => {
   const user = dummyUserData;
-  const location = useLocation();
+
   const [image, setImage] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
 
@@ -52,7 +55,7 @@ const SideBar = () => {
 
             {/* Edit Overlay */}
             <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 rounded-full transition-opacity duration-150">
-              <img src={assets.edit_icon} alt="edit" className="w-5 h-5" />
+              <FiEdit2 aria-hidden="true" className="w-5 h-5 text-white" />
             </div>
 
             <input
@@ -73,7 +76,7 @@ const SideBar = () => {
               className="flex items-center gap-1.5 bg-blue-500 hover:bg-blue-600 text-white text-xs font-medium px-3 py-1.5 rounded-md transition-colors"
             >
               Save
-              <img src={assets.check_icon} alt="" className="w-3.5 h-3.5" />
+              <FiCheck aria-hidden="true" className="w-3.5 h-3.5" />
             </button>
             <button
               onClick={cancelImage}
@@ -94,10 +97,10 @@ const SideBar = () => {
 
       {/* Menu Links */}
       <nav className="w-full mt-4 flex flex-col gap-0.5 px-3">
-        {ownerMenuLinks.map((item, index) => (
+        {ownerMenuLinks.map((item, index) => { const Icon = menuIcons[item.path] || FiGrid; return (
           <NavLink
             key={index}
-            to={item.path}
+            to={item.path} end={item.path === "/owner"}
             className={({ isActive }) =>
               `relative flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-150
               ${
@@ -107,22 +110,16 @@ const SideBar = () => {
               }`
             }
           >
-            <img
-              src={item.icon}
-              alt=""
-              className={`w-[18px] h-[18px] ${
-                location.pathname === item.path ? "opacity-100" : "opacity-60"
-              }`}
-            />
+            <Icon aria-hidden="true" className="w-[18px] h-[18px] shrink-0" />
             <span className="text-[13.5px]">{item.name}</span>
           </NavLink>
-        ))}
+        ); })}
       </nav>
 
       {/* Footer */}
       <div className="mt-auto w-full px-3 pt-4 border-t border-gray-100">
         <button className="flex items-center gap-3 px-3 py-2.5 rounded-lg w-full text-gray-400 hover:text-red-500 hover:bg-red-50 transition-all duration-150 text-[13.5px]">
-          <img src={assets.logout_icon} alt="" className="w-[18px] h-[18px] opacity-60" />
+          <FiLogOut aria-hidden="true" className="w-[18px] h-[18px]" />
           Log out
         </button>
       </div>
