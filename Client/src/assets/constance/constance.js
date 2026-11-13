@@ -48,7 +48,6 @@ import hero_new from "../images/hero-new.jpg";
 export const menuLinks = [
   { name: 'Home', path: '/' },
   { name: 'Cars', path: '/cars' },
-  {name: 'My bookings', path: '/my-bookings'},
   { name: 'About Us', path: '/about' },
   { name: 'Contact Us', path: '/contact' },
   
@@ -245,7 +244,8 @@ export const ownerMenuLinks = [
     { name: "Add car", path: "/owner/add-car", icon: addIcon, coloredIcon: addIconColored },
     { name: "Manage Cars", path: "/owner/manage-cars", icon: carIcon, coloredIcon: carIconColored },
     { name: "Manage Bookings", path: "/owner/manage-bookings", icon: listIcon, coloredIcon: listIconColored },
-   
+    { name: "My Profile", path: "/owner/profile" },
+    { name: "Inquiry", path: "/owner/inquiries" },
 ]
 
 export const dummyMyBookingsData = [

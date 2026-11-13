@@ -17,7 +17,7 @@ export const createBooking = asyncHandler(async (req, res) => {
 
   // idempotency check — if this exact request was already processed, return the original result
   if (idempotencyKey) {
-    const existing = await Booking.findOne({ idempotencyKey });
+    const existing = await Booking.findOne({ idempotencyKey, customer: req.user.id });
     if (existing) {
       return res
         .status(200)
@@ -67,7 +67,7 @@ export const getMyBookings = asyncHandler(async (req, res) => {
 
   const [bookings, total] = await Promise.all([
     Booking.find(filter)
-      .populate("car", "brand model images pricePerDay")
+      .populate("car", "brand model image pricePerDay seatCapacity transmission year location")
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(Number(limit)),
@@ -114,7 +114,7 @@ export const getOwnerBookings = asyncHandler(async (req, res) => {
 // @access Private (customer who owns it, owner who owns the car, or admin)
 export const getBookingById = asyncHandler(async (req, res) => {
   const booking = await Booking.findById(req.params.id)
-    .populate("car", "brand model images pricePerDay")
+    .populate("car", "brand model image pricePerDay seatCapacity transmission year location")
     .populate("customer", "name email phone");
 
   if (!booking) {

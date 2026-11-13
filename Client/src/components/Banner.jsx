@@ -1,86 +1,40 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import {
-  ArrowRight,
-  BadgePercent,
-  CalendarCheck,
-  ShieldCheck,
-  Headphones,
-} from "lucide-react";
+import { motion as Motion, useReducedMotion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { assets } from "../assets/constance/constance";
 
-const perks = [
-  { icon: CalendarCheck, title: "Flexible Booking", text: "Change or cancel anytime" },
-  { icon: ShieldCheck, title: "Safe & Reliable", text: "Well-maintained vehicles" },
-  { icon: Headphones, title: "24/7 Support", text: "We're always here for you" },
-];
-
 const Banner = () => {
-  const navigate = useNavigate();
-
+  const reducedMotion = useReducedMotion();
   return (
-    <div className="mb-16">
-      <div className="relative flex min-h-screen min-h-[100svh] flex-col overflow-hidden bg-white">
-        {/* Car image on the right, fading into white on the left */}
+  <section className="w-full" aria-labelledby="promotion-title">
+    <div className="relative isolate grid min-h-[300px] w-full overflow-hidden bg-gradient-to-r from-[#0d142e] via-blue-800 to-blue-500 md:grid-cols-2">
+      <div aria-hidden="true" className="pointer-events-none absolute -left-16 -top-24 h-[600px] w-56 rotate-45 opacity-10 [background:repeating-linear-gradient(0deg,transparent,transparent_18px,#fff_18px,#fff_24px)]" />
+      <Motion.div
+        initial={reducedMotion ? false : { opacity: 0, x: 90 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+        className="relative order-2 flex items-center px-5 py-8 md:order-2 md:px-0 md:pt-12"
+      >
         <img
-          src={assets.car_image4}
-          alt="Car offer"
-          className="absolute right-0 top-0 h-full w-full md:w-[65%] object-cover"
+          src={assets.banner_car_image}
+          alt="BMW available for rental"
+          loading="lazy"
+          className="relative mx-auto w-full max-w-xl object-contain drop-shadow-2xl md:-mb-5 md:mr-5 md:scale-110"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/90 to-white/20 md:via-white/60 md:to-transparent md:from-35%" />
-        <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/50 to-transparent md:left-[35%]" />
-
-        <div className="relative flex flex-1 flex-col justify-center px-6 md:px-16 py-14 md:py-24 [&>p]:max-w-md">
-          <span className="w-fit flex items-center gap-1.5 bg-blue-50 text-blue-600 text-xs font-semibold px-3 py-1 rounded-full">
-            <BadgePercent className="w-4 h-4" />
-            Limited Time Offer
-          </span>
-
-          <h2 className="mt-4 text-3xl md:text-4xl font-extrabold text-gray-900 leading-tight">
-            Get <span className="text-blue-600">20% OFF</span>
-            <br />
-            Your Next Car Rental
-          </h2>
-
-          <p className="mt-3 text-sm text-gray-600">
-            Explore more, spend less! Book now and enjoy a special discount on
-            all car rentals. Your next adventure is waiting!
-          </p>
-
-          <div className="mt-6 flex flex-wrap items-center gap-3">
-            <button
-              onClick={() => navigate("/cars")}
-              className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 transition text-white text-sm font-semibold px-5 py-2.5 rounded-full cursor-pointer"
-            >
-              Book Now <ArrowRight className="w-4 h-4" />
-            </button>
-            <button
-              onClick={() => navigate("/cars")}
-              className="border border-blue-200 bg-white hover:bg-blue-50 transition text-blue-600 text-sm font-semibold px-5 py-2.5 rounded-full cursor-pointer"
-            >
-              View Deals
-            </button>
-          </div>
-        </div>
-
-        {/* Perks over the image */}
-        <div className="relative md:absolute md:right-10 md:bottom-6 flex flex-wrap gap-5 px-6 pb-6 md:p-0 text-white">
-          {perks.map(({ icon: Icon, title, text }) => (
-            <div key={title} className="flex items-center gap-2">
-              <div className="w-9 h-9 shrink-0 rounded-full border border-white/60 flex items-center justify-center">
-                <Icon className="w-4 h-4" />
-              </div>
-              <div>
-                <p className="text-xs font-semibold">{title}</p>
-                <p className="text-[11px] text-gray-200">{text}</p>
-              </div>
-            </div>
-          ))}
-        </div>
+      </Motion.div>
+      <div className="relative z-10 order-1 flex flex-col items-center justify-center px-6 pt-10 text-center text-white md:order-1 md:py-12 lg:px-10">
+        <h2 id="promotion-title" className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl xl:text-7xl">Sale 50% Off</h2>
+        <p className="mt-4 text-base font-semibold sm:text-xl lg:text-2xl">On All Rental Cars For 1 Month</p>
+        <Link
+          to="/cars"
+          className="mt-7 inline-flex items-center justify-center rounded-xl bg-[#0d142e] px-9 py-4 text-sm font-bold text-white transition-colors hover:bg-slate-800 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white sm:text-base"
+        >
+          Book Your Car
+        </Link>
       </div>
     </div>
+  </section>
   );
 };
 
 export default Banner;
-

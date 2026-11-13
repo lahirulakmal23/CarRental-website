@@ -1,3 +1,4 @@
+import ScrollReveal from "./ScrollReveal"
 import { Link } from 'react-router-dom'
 import { ArrowRight, BookOpen } from 'lucide-react'
 import { blogPosts } from '../assets/constance/blogPosts'
@@ -15,8 +16,8 @@ export default function BlogSection({ showAllLink = true }) {
           {showAllLink && <Link to="/blog" className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-primary hover:text-primary-dull">View All Articles <ArrowRight aria-hidden="true" className="h-4 w-4" /></Link>}
         </div>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {blogPosts.map((post) => (
-            <article key={post.slug} className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-shadow hover:shadow-lg">
+          {blogPosts.map((post, index) => (
+            <ScrollReveal as="article" delay={(index % 3) * 0.1} key={post.slug} className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-shadow hover:shadow-lg">
               <Link to={`/blog/${post.slug}`} className="group flex h-full flex-col focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-primary">
                 <div className="aspect-[16/10] overflow-hidden"><img src={post.image} alt="" loading="lazy" className="h-full w-full object-cover motion-safe:transition-transform motion-safe:duration-300 motion-safe:group-hover:scale-105" /></div>
                 <div className="flex flex-1 flex-col p-6">
@@ -26,7 +27,7 @@ export default function BlogSection({ showAllLink = true }) {
                   <span className="mt-auto flex items-center gap-2 border-t border-gray-100 pt-4 text-sm font-semibold text-primary">Read Article <ArrowRight aria-hidden="true" className="h-4 w-4" /></span>
                 </div>
               </Link>
-            </article>
+            </ScrollReveal>
           ))}
         </div>
       </div>

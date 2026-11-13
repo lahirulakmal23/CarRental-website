@@ -17,7 +17,7 @@ beforeEach(async () => {
     name: "Owner",
     email: "owner@test.com",
     password: "123456",
-    role: "customer", // registers as customer first, then upgrades — mirrors real flow
+    role: "owner", // owner accounts register with their own role; no customer upgrade — mirrors real flow
   });
   ownerToken = ownerRes.body.data.token;
   ownerId = ownerRes.body.data.user.id;
@@ -33,36 +33,19 @@ beforeEach(async () => {
 });
 
 describe("POST /api/v1/owner/change-role", () => {
-  it("upgrades a customer to owner role", async () => {
-    const res = await request(app)
-      .post("/api/v1/owner/change-role")
-      .set("Authorization", `Bearer ${ownerToken}`);
-
-    expect(res.status).toBe(200);
-    expect(res.body.data.role).toBe("owner");
-
-    const updatedUser = await User.findById(ownerId);
-    expect(updatedUser.role).toBe("owner");
+  it("blocks customer self-promotion and preserves their role", async () => {
+    const res = await request(app).post("/api/v1/owner/change-role").set("Authorization", `Bearer ${customerToken}`);
+    expect(res.status).toBe(403);
+    expect((await User.findById(customerId)).role).toBe("customer");
   });
-
-  it("rejects trying to change role twice", async () => {
-    await request(app)
-      .post("/api/v1/owner/change-role")
-      .set("Authorization", `Bearer ${ownerToken}`);
-
-    const res = await request(app)
-      .post("/api/v1/owner/change-role")
-      .set("Authorization", `Bearer ${ownerToken}`);
-
-    expect(res.status).toBe(400);
+  it("rejects role changes for existing owners", async () => {
+    const res = await request(app).post("/api/v1/owner/change-role").set("Authorization", `Bearer ${ownerToken}`);
+    expect(res.status).toBe(403);
   });
-
   it("requires authentication", async () => {
-    const res = await request(app).post("/api/v1/owner/change-role");
-    expect(res.status).toBe(401);
+    expect((await request(app).post("/api/v1/owner/change-role")).status).toBe(401);
   });
 });
-
 // NOTE: POST /owner/add-car requires multipart file upload + a live ImageKit call,
 // which isn't practical to fully automate here — that flow is verified manually via Postman.
 // These tests cover the parts of the module that are pure DB/business logic instead.
@@ -86,12 +69,7 @@ describe("GET /api/v1/owner/dashboard", () => {
     });
   };
 
-  beforeEach(async () => {
-    // promote the "owner" test user to actual owner role before dashboard tests
-    await request(app)
-      .post("/api/v1/owner/change-role")
-      .set("Authorization", `Bearer ${ownerToken}`);
-  });
+
 
   it("returns zeroed stats for an owner with no cars or bookings", async () => {
     const res = await request(app)

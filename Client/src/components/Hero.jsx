@@ -1,3 +1,4 @@
+import { motion as Motion, useReducedMotion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { assets } from "../assets/constance/constance";
@@ -12,6 +13,8 @@ const slides = [
 ];
 
 const Hero = () => {
+  const reducedMotion = useReducedMotion();
+  const entrance = (delay) => ({ initial: reducedMotion ? false : { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.65, delay: reducedMotion ? 0 : delay, ease: [0.22, 1, 0.36, 1] } });
   const [activeSlide, setActiveSlide] = useState(0);
   const [playing, setPlaying] = useState(() => !window.matchMedia("(prefers-reduced-motion: reduce)").matches);
   const [focused, setFocused] = useState(false);
@@ -54,9 +57,9 @@ const Hero = () => {
         <div className="absolute inset-x-0 bottom-0 -z-10 h-40 bg-gradient-to-t from-black/70 to-transparent" />
 
         <div className="relative px-4 sm:px-6 lg:px-16 pt-36 md:pt-44 pb-48">
-          <p className="text-xs md:text-sm font-semibold tracking-[0.2em] text-gray-200 uppercase mb-4">Car Rental Service</p>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white leading-tight">Explore More<br /><span className="text-blue-500">Drive Freely</span></h1>
-          <p className="text-gray-200 text-sm md:text-base leading-relaxed max-w-md mt-5">Rent the perfect car for your journey. Affordable rates, flexible plans and a smooth experience &mdash; only at CarRental.</p>
+          <Motion.p {...entrance(0.05)} className="text-xs md:text-sm font-semibold tracking-[0.2em] text-gray-200 uppercase mb-4">Car Rental Service</Motion.p>
+          <Motion.h1 {...entrance(0.15)} className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white leading-tight">Explore More<br /><span className="text-blue-500">Drive Freely</span></Motion.h1>
+          <Motion.p {...entrance(0.25)} className="text-gray-200 text-sm md:text-base leading-relaxed max-w-md mt-5">Rent the perfect car for your journey. Affordable rates, flexible plans and a smooth experience &mdash; only at CarRental.</Motion.p>
         </div>
 
         <div className="absolute inset-x-6 bottom-24 flex items-center justify-between gap-4 md:inset-x-16 md:bottom-28">

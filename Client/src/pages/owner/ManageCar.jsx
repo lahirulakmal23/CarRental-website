@@ -128,9 +128,6 @@ const CarTableRow = ({ car, currency, isLast, onPriceSave, onToggleStatus, onDel
             className="w-[72px] h-[46px] object-cover rounded-lg border border-gray-100 block"
             onError={(e) => { e.target.style.display = "none"; }}
           />
-          <span
-            className={`absolute top-1 right-1 w-2 h-2 rounded-full border-2 border-white ${car.isAvaliable ? "bg-green-400" : "bg-red-400"}`}
-          />
         </div>
         <div>
           <div className="font-semibold text-gray-900 text-[13px]">

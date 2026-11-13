@@ -1,14 +1,14 @@
-import { FiGrid, FiPlusCircle, FiTruck, FiClipboard, FiEdit2, FiCheck, FiLogOut } from 'react-icons/fi';
+import { FiMessageSquare, FiHome, FiUser, FiGrid, FiPlusCircle, FiTruck, FiClipboard, FiEdit2, FiCheck, FiLogOut } from 'react-icons/fi';
 import React, { useState } from "react";
 import { dummyUserData, ownerMenuLinks } from "../../assets/constance/constance";
 import { NavLink } from "react-router-dom";
 
-const menuIcons = { '/owner': FiGrid, '/owner/add-car': FiPlusCircle, '/owner/manage-cars': FiTruck, '/owner/manage-bookings': FiClipboard };
+const menuIcons = { '/owner/inquiries': FiMessageSquare, '/owner/profile': FiUser, '/owner': FiGrid, '/owner/add-car': FiPlusCircle, '/owner/manage-cars': FiTruck, '/owner/manage-bookings': FiClipboard };
 
-const SideBar = () => {
-  const user = dummyUserData;
+const SideBar = ({ user = dummyUserData, onLogout }) => {
 
   const [image, setImage] = useState(null);
+  const [savedImage, setSavedImage] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
 
   const handleImageChange = (e) => {
@@ -21,7 +21,8 @@ const SideBar = () => {
 
   const updateImage = () => {
     if (image) {
-      user.image = previewUrl;
+      setSavedImage(previewUrl);
+      setPreviewUrl(null);
       setImage(null);
     }
   };
@@ -35,15 +36,15 @@ const SideBar = () => {
     name?.split(" ").map((n) => n[0]).join("").slice(0, 2).toUpperCase() || "?";
 
   return (
-    <div className="relative min-h-screen flex flex-col items-center pt-7 pb-4 text-sm bg-white border-r border-gray-100 w-full md:w-56 lg:w-64">
+    <div className="relative h-full shrink-0 flex flex-col items-center pt-7 pb-4 text-sm bg-white border-r border-gray-100 w-48 md:w-56 lg:w-64">
 
       {/* Profile Section */}
       <div className="flex flex-col items-center w-full px-4">
         <div className="group relative">
           <label htmlFor="image" className="cursor-pointer block">
-            {previewUrl || user?.image ? (
+            {previewUrl || savedImage || user?.image ? (
               <img
-                src={previewUrl || user.image}
+                src={previewUrl || savedImage || user.image}
                 alt="profile"
                 className="w-16 h-16 rounded-full object-cover ring-2 ring-offset-2 ring-blue-100"
               />
@@ -118,7 +119,14 @@ const SideBar = () => {
 
       {/* Footer */}
       <div className="mt-auto w-full px-3 pt-4 border-t border-gray-100">
-        <button className="flex items-center gap-3 px-3 py-2.5 rounded-lg w-full text-gray-400 hover:text-red-500 hover:bg-red-50 transition-all duration-150 text-[13.5px]">
+        <NavLink
+          to="/"
+          className="flex items-center gap-3 px-3 py-2.5 rounded-lg w-full text-gray-500 hover:bg-gray-50 hover:text-gray-700 transition-all duration-150 text-[13.5px]"
+        >
+          <FiHome aria-hidden="true" className="w-[18px] h-[18px] shrink-0" />
+          Back to Home
+        </NavLink>
+        <button type="button" onClick={onLogout} className="flex items-center gap-3 px-3 py-2.5 rounded-lg w-full text-gray-400 hover:text-red-500 hover:bg-red-50 transition-all duration-150 text-[13.5px]">
           <FiLogOut aria-hidden="true" className="w-[18px] h-[18px]" />
           Log out
         </button>

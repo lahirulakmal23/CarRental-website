@@ -1,4 +1,4 @@
-import { FiClipboard, FiClock, FiCheckCircle, FiDollarSign, FiSearch, FiX } from 'react-icons/fi';
+import { FiClipboard, FiClock, FiCheckCircle, FiXCircle, FiSearch } from 'react-icons/fi';
 import { useState } from "react";
 import useToast from "../../hooks/useToast";
 import useBookings from "../../hooks/useBookings";
@@ -133,8 +133,10 @@ const ManageBooking = () => {
   const [reviewTarget, setReviewTarget] = useState(null);
 
   const { toast, showToast } = useToast();
-  const { bookings, handleAction, handleCancel, pendingCount, confirmedCount, totalRevenue } = useBookings(showToast);
+  const { bookings, handleAction, handleCancel, pendingCount, confirmedCount } = useBookings(showToast);
   const { search, setSearch, statusFilter, setStatusFilter, filtered } = useBookingFilters(bookings);
+
+  const cancelledCount = bookings.filter((booking) => booking.status === "cancelled").length;
 
   const onApproveAction = (id, newStatus) => {
     handleAction(id, newStatus);
@@ -164,7 +166,7 @@ const ManageBooking = () => {
         <StatCard label="Total Bookings"  value={bookings.length}                                        icon={FiClipboard} />
         <StatCard label="Pending Review"  value={pendingCount}   color={pendingCount > 0 ? "text-yellow-700" : "text-gray-900"} icon={FiClock} />
         <StatCard label="Confirmed"       value={confirmedCount} color="text-green-700"                  icon={FiCheckCircle} />
-        <StatCard label="Revenue"         value={`${currency}${totalRevenue.toLocaleString()}`} color="text-indigo-500" icon={FiDollarSign} />
+        <StatCard label="Cancelled Bookings" value={cancelledCount} color="text-red-600" icon={FiXCircle} />
       </div>
 
 
@@ -184,7 +186,7 @@ const ManageBooking = () => {
         <table className="min-w-[960px] w-full border-collapse text-[13px]">
           <thead>
             <tr className="bg-gray-50 border-b border-gray-100">
-              {["Car & Customer", "Booking Date", "Return Date", "Total", "Payment", "Status", "Actions"].map((h) => (
+              {["Car Details", "Booking Date", "Return Date", "Total", "Payment", "Status", "Actions"].map((h) => (
                 <th
                   key={h}
                   className="px-4 py-[11px] text-left font-semibold text-[11px] text-gray-400 uppercase tracking-[0.5px]"

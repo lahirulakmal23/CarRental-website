@@ -1,3 +1,4 @@
+import { motion as Motion, useReducedMotion } from 'framer-motion'
 import { Car, CalendarCheck, KeyRound, Navigation } from 'lucide-react'
 
 const steps = [
@@ -8,6 +9,7 @@ const steps = [
 ]
 
 export default function RentalProcess() {
+  const reducedMotion = useReducedMotion()
   return (
     <section className="overflow-hidden bg-slate-900 px-4 py-12 text-white sm:px-6 lg:px-16 md:py-20" aria-labelledby="rental-process-title">
       <div className="mx-auto max-w-7xl">
@@ -18,14 +20,14 @@ export default function RentalProcess() {
         </div>
         <div className="relative mt-12"><div aria-hidden="true" className="pointer-events-none absolute left-[12.5%] right-[12.5%] top-14 hidden border-t border-dashed border-slate-500 lg:block" /><ol className="relative grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
           {steps.map(({ icon: Icon, title, description }, index) => (
-            <li key={title} className="relative text-center">
+            <Motion.li initial={reducedMotion ? false : { opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.5, delay: reducedMotion ? 0 : index * 0.12 }} key={title} className="relative text-center">
               <div className="relative mx-auto flex h-28 w-28 items-center justify-center rounded-full border-8 border-slate-900 bg-primary shadow-[0_0_0_1px_rgba(96,165,250,0.25)]">
                 <Icon aria-hidden="true" className="h-11 w-11 text-white" strokeWidth={1.4} />
                 <span aria-hidden="true" className="absolute -right-1 -top-1 flex h-7 w-7 items-center justify-center rounded-full border-2 border-slate-900 bg-blue-100 text-xs font-bold text-primary">{index + 1}</span>
               </div>
               <h3 className="mt-5 text-lg font-semibold">{title}</h3>
               <p className="mx-auto mt-2 max-w-60 text-sm leading-relaxed text-slate-400">{description}</p>
-            </li>
+            </Motion.li>
           ))}
         </ol></div>
       </div>

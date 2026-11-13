@@ -21,14 +21,18 @@ const BookingRow = ({ item, currency, isLast }) => (
     style={{ gridTemplateColumns: "2fr 1fr 1fr 1.2fr 0.7fr 0.8fr" }}
   >
     <div className="flex items-center gap-[10px]">
-      <div className="w-[34px] h-[34px] rounded-lg bg-indigo-50 flex items-center justify-center text-base shrink-0">
-        🚗
-      </div>
+      <img
+        src={item.car?.image}
+        alt={`${item.car?.brand || ""} ${item.car?.model || ""}`.trim() || "Car"}
+        className="w-[56px] h-[38px] rounded-lg object-cover border border-gray-100 shrink-0"
+      />
       <div>
         <div className="font-semibold text-[12px] text-gray-900">
           {item.car?.brand} {item.car?.model}
         </div>
-        <div className="text-[10px] text-gray-400">#{item.bookingId || "—"}</div>
+        <div className="text-[10px] text-gray-400 mt-[2px]">
+          {item.car?.seating_capacity} seats · {item.car?.transmission} · {item.car?.year}
+        </div>
       </div>
     </div>
 

@@ -1,23 +1,21 @@
-import React from 'react'
 import SideBar from '../../components/owner/SideBar'
 import NavbarOwner from '../../components/owner/NavbarOwner'
-import Dashborad from '../owner/Dashborad'
 import { Outlet } from 'react-router-dom'
 
 
 
-const Layout = () => {
+const Layout = ({ user, onLogout }) => {
   return (
-  <div className="flex flex-col">
-      <NavbarOwner />
+  <div className="flex h-dvh flex-col overflow-hidden">
+      <NavbarOwner user={user} />
 
-      <div className="flex">
-        <SideBar />
+      <div className="flex min-h-0 flex-1 overflow-hidden">
+        <SideBar user={user} onLogout={onLogout} />
 
         {/* THIS IS WHERE ROUTES CHANGE */}
-        <div className="flex-1 ">
+        <main className="min-w-0 flex-1 overflow-y-auto">
           <Outlet />
-        </div>
+        </main>
       </div>
     </div>
   )

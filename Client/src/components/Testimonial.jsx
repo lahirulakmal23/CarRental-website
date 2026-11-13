@@ -1,3 +1,4 @@
+import ScrollReveal from "./ScrollReveal"
 import React, { useEffect, useRef, useState } from 'react'
 import { ChevronLeft, ChevronRight, Quote, Star, Car, ShieldCheck, Headphones } from 'lucide-react'
 import { assets, testimonials } from '../assets/constance/constance';
@@ -71,8 +72,8 @@ const Testimonial = () => {
                     onScroll={updatePages}
                     className="flex overflow-x-auto snap-x snap-mandatory [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
                 >
-                    {testimonials.map((testimonial) => (
-                        <div key={testimonial.id} className="snap-start shrink-0 w-full sm:w-1/2 lg:w-1/3 p-3">
+                    {testimonials.map((testimonial, index) => (
+                        <ScrollReveal delay={(index % 3) * 0.1} key={testimonial.id} className="snap-start shrink-0 w-full sm:w-1/2 lg:w-1/3 p-3">
                             <div className="h-full flex flex-col bg-white rounded-2xl shadow-[0_8px_30px_rgba(15,23,42,0.06)] p-6">
                                 <div className="flex flex-wrap items-start gap-3">
                                     <img className="w-12 h-12 shrink-0 rounded-full object-cover" src={testimonial.image} alt={testimonial.name} />
@@ -95,7 +96,7 @@ const Testimonial = () => {
 
                                 <p className="text-sm text-gray-600 leading-relaxed mt-5 flex-1">"{testimonial.testimonial}"</p>
                             </div>
-                        </div>
+                        </ScrollReveal>
                     ))}
                 </div>
 
@@ -129,11 +130,11 @@ const Testimonial = () => {
 
                 <div className="relative max-w-6xl mx-auto px-4 py-12 xl:pr-[38%] grid grid-cols-2 sm:grid-cols-4 gap-x-3 gap-y-8">
                     {stats.map(({ icon: Icon, value, label }, index) => (
-                        <div key={label} className={`flex flex-col items-center text-center ${index > 0 ? "sm:border-l border-gray-200" : ""}`}>
+                        <ScrollReveal delay={index * 0.1} key={label} className={`flex flex-col items-center text-center ${index > 0 ? "sm:border-l border-gray-200" : ""}`}>
                             <Icon className="w-9 h-9 text-blue-600" strokeWidth={1.75} />
                             <p className="mt-3 text-2xl font-bold text-slate-900">{value}</p>
                             <p className="text-sm text-gray-500">{label}</p>
-                        </div>
+                        </ScrollReveal>
                     ))}
                 </div>
             </div>

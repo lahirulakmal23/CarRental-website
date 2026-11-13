@@ -1,8 +1,9 @@
+import AccountMenu from "./AccountMenu";
 import React from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { menuLinks, assets } from "../assets/constance/constance";
 
-const Navbar = ({ setShowLogin }) => {
+const Navbar = ({ setShowLogin, user, onLogout }) => {
   const [open, setOpen] = React.useState(false);
   const { pathname } = useLocation();
   const [scrolled, setScrolled] = React.useState(() => window.scrollY > 24);
@@ -36,13 +37,15 @@ const Navbar = ({ setShowLogin }) => {
       </div>
 
       {/* LOGIN - right */}
-      <div className="hidden lg:flex flex-1 justify-end">
+      <div onClickCapture={() => setOpen(false)} className="ml-auto mr-4 flex items-center justify-end lg:mr-0 lg:flex-1">
+        {user ? <AccountMenu key={pathname} user={user} onLogout={onLogout} transparent={transparent} /> : (
         <button
           onClick={() => setShowLogin('register')}
           className="cursor-pointer px-6 py-2 bg-primary hover:bg-primary-dull text-white rounded-lg"
         >
           Sign Up
         </button>
+        )}
       </div>
 
       {/* MOBILE MENU BUTTON */}
@@ -74,16 +77,6 @@ const Navbar = ({ setShowLogin }) => {
             {link.name}
           </NavLink>
         ))}
-
-        <button
-          className="mt-6 w-full py-2 bg-primary text-white rounded-lg"
-          onClick={() => {
-            setShowLogin('register');
-            setOpen(false);
-          }}
-        >
-          Sign Up
-        </button>
       </div>
     </div>
   );

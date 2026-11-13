@@ -1,6 +1,6 @@
 import fs from "fs";
 import Car from "../models/car.model.js";
-import User from "../models/user.model.js";
+
 import imageKit from "../config/imageKit.js";
 import ApiError from "../utils/ApiError.js";
 import ApiResponse from "../utils/ApiResponse.js";
@@ -8,26 +8,10 @@ import asyncHandler from "../utils/asyncHandler.js";
 import { getOwnerStats, getOwnerRecentBookings } from "../services/stats.services.js";
 
 
-// @route  PATCH /api/v1/owner/change-role
-// @access Private (any logged-in user)
-export const changeRoleToOwner = asyncHandler(async (req, res) => {
-  const userId = req.user.id;
-
-  const user = await User.findById(userId);
-  if (!user) {
-    throw new ApiError(404, "User not found");
-  }
-
-  if (user.role === "owner") {
-    throw new ApiError(400, "You are already an owner");
-  }
-
-  user.role = "owner";
-  await user.save();
-
-  res.status(200).json(new ApiResponse(200, { role: user.role }, "Role updated to owner"));
+// Existing accounts cannot grant themselves owner permissions.
+export const changeRoleToOwner = asyncHandler(async () => {
+  throw new ApiError(403, "Account roles cannot be changed here. Register an owner account to manage cars.");
 });
-
 // @route  POST /api/v1/owner/add-car
 // @access Private (owner only)
 export const addCar = asyncHandler(async (req, res) => {

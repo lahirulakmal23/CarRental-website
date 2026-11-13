@@ -2,11 +2,10 @@ import React from "react";
 import { dummyUserData, assets } from "../../assets/constance/constance";
 import { Link } from "react-router-dom";
 
-const NavbarOwner = () => {
-  const user = dummyUserData;
+const NavbarOwner = ({ user = dummyUserData }) => {
 
   return (
-    <nav className="w-full h-16 bg-gray-50 border-b   border-gray-300  flex items-center justify-between px-8">
+    <nav className="w-full h-16 shrink-0 bg-gray-50 border-b   border-gray-300  flex items-center justify-between px-8">
       
       {/* Left: Logo */}
       <Link to="/" className="flex items-center gap-2">

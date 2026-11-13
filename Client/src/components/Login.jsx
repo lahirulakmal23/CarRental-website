@@ -7,7 +7,7 @@ const roles = [
   { value: 'owner', label: 'Car Owner', description: 'List your cars and manage rental bookings.', icon: FiTruck },
 ]
 
-const Login = ({ setShowLogin, initialState = 'login' }) => {
+const Login = ({ setShowLogin, onLogin, initialState = 'login' }) => {
   const navigate = useNavigate()
   const [state, setState] = useState(initialState)
   const [role, setRole] = useState('')
@@ -69,8 +69,8 @@ const Login = ({ setShowLogin, initialState = 'login' }) => {
       if (!result.data?.token || !result.data?.user) throw new Error('Unable to verify the account response. Please try again.')
       sessionStorage.setItem('token', result.data.token)
       sessionStorage.setItem('user', JSON.stringify(result.data.user))
-      setShowLogin(false)
-      navigate(result.data.user.role === 'owner' ? '/owner' : '/cars')
+      onLogin?.(result.data.user)
+      navigate(result.data.user.role === 'owner' ? '/owner' : '/cars', { replace: true })
     } catch (requestError) {
       setError(requestError instanceof TypeError || requestError instanceof SyntaxError ? 'Unable to connect. Please check that the server is running and try again.' : requestError.message)
     } finally {

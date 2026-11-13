@@ -1,38 +1,40 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { dummyCarData, assets } from "../assets/constance/constance";
 
-const CarDetails = () => {
+const CarDetails = ({ user, setShowLogin, checking }) => {
   const [pickupDate, setPickupDate] = useState("");
-const [returnDate, setReturnDate] = useState("");
-const [totalPrice, setTotalPrice] = useState(0);
-
-// calculate total whenever dates change
-useEffect(() => {
-  if (pickupDate && returnDate) {
-    const start = new Date(pickupDate);
-    const end = new Date(returnDate);
-
-    const diffTime = end - start;
-    const diffDays = diffTime / (1000 * 60 * 60 * 24);
-
-    if (diffDays > 0) {
-      setTotalPrice(diffDays * carDetails.pricePerDay);
-    } else {
-      setTotalPrice(0);
-    }
-  }
-}, [pickupDate, returnDate]);
+  const [returnDate, setReturnDate] = useState("");
+  const [bookingError, setBookingError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();
+  const carDetails = dummyCarData.find((car) => String(car._id) === id);
+  const days = Math.ceil((new Date(returnDate) - new Date(pickupDate)) / 86400000);
+  const totalPrice = days > 0 ? days * (carDetails?.pricePerDay || 0) : 0;
 
-  const [carDetails, setCarDetails] = useState(null);
-
-  useEffect(() => {
-    const foundCar = dummyCarData.find((car) => String(car._id) === id);
-    setCarDetails(foundCar);
-  }, [id]);
-
+  const bookCar = async (event) => {
+    event.preventDefault();
+    if (checking || submitting) return;
+    if (!user) { setShowLogin("login"); return; }
+    if (user.role !== "customer") return;
+    if (!pickupDate || !returnDate || days <= 0) { setBookingError("Select a return date after your pickup date."); return; }
+    setSubmitting(true);
+    setBookingError("");
+    try {
+      const baseUrl = (import.meta.env.VITE_API_BASE_URL || "/api/v1").replace(/\/$/, "");
+      const response = await fetch(`${baseUrl}/bookings`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${sessionStorage.getItem("token")}` },
+        body: JSON.stringify({ carId: id, pickupDate, returnDate, pickupLocation: carDetails.location }),
+      });
+      const result = await response.json();
+      if (!response.ok || !result.success) throw new Error(result.message || "Unable to book this car.");
+      navigate("/my-bookings");
+    } catch (error) {
+      setBookingError(error instanceof TypeError || error instanceof SyntaxError ? "Unable to connect to the booking server. Please try again." : error.message);
+    } finally { setSubmitting(false); }
+  };
   // ✅ Loading guard
   if (!carDetails) {
     return (
@@ -109,11 +111,12 @@ useEffect(() => {
 
           <hr className="mb-4" />
 
-          <form className="space-y-4">
+          <form onSubmit={bookCar} className="space-y-4">
             <div>
               <label className="text-sm text-gray-600">Pickup Date</label>
               <input
                 type="date"
+                required
                 value={pickupDate}
                 onChange={(e) => setPickupDate(e.target.value)}
                 className="w-full border rounded-lg px-3 py-2 mt-1 focus:ring-2 focus:ring-blue-500"
@@ -124,12 +127,14 @@ useEffect(() => {
               <label className="text-sm text-gray-600">Return Date</label>
               <input
                 type="date"
+                required
                 value={returnDate}
                 onChange={(e) => setReturnDate(e.target.value)}
                 className="w-full border rounded-lg px-3 py-2 mt-1 focus:ring-2 focus:ring-blue-500"
               />
             </div>
 
+            {bookingError && <p role="alert" className="text-sm text-red-600">{bookingError}</p>}
             {/* Total price */}
             {totalPrice > 0 && (
               <div className="flex justify-between font-semibold text-gray-700 mt-8 mb-6">
@@ -139,10 +144,11 @@ useEffect(() => {
             )}
 
             <button
+              disabled={checking || submitting || (!!user && user.role !== "customer")}
               type="submit"
-              className="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition"
+              className="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Book Now
+              {checking ? "Checking account..." : submitting ? "Booking..." : user && user.role !== "customer" ? "Customer accounts only" : !user ? "Log In to Book" : "Book Now"}
             </button>
 
             <p className="text-center text-xs text-gray-500">

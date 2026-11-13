@@ -1,10 +1,9 @@
-import { FiUser, FiEye } from 'react-icons/fi';
-import { fmt, daysBetween } from "../../utils/bookingHelpers";
+import { FiEye } from 'react-icons/fi';
+import { fmt } from "../../utils/bookingHelpers";
 import BookingStatusBadge from "./BookingStatusBadge";
 import PaymentBadge from "./PaymentBadge";
 
 const BookingRow = ({ booking, currency, onReview, onCancel, isLast }) => {
-  const days = daysBetween(booking.pickupDate, booking.returnDate);
   const isPending   = booking.status === "pending";
   const isConfirmed = booking.status === "confirmed";
 
@@ -13,7 +12,7 @@ const BookingRow = ({ booking, currency, onReview, onCancel, isLast }) => {
       className="bg-white transition-colors hover:bg-gray-50"
       style={{ borderBottom: isLast ? "none" : "1px solid #f5f5f5" }}
     >
-      {/* Car & Customer */}
+      {/* Car details */}
       <td className="px-4 py-[14px]">
         <div className="flex items-center gap-3">
           <div className="relative shrink-0">
@@ -23,21 +22,13 @@ const BookingRow = ({ booking, currency, onReview, onCancel, isLast }) => {
               className="w-[72px] h-[46px] object-cover rounded-lg border border-gray-100 block"
               onError={(e) => { e.target.style.display = "none"; }}
             />
-            {isPending && (
-              <span className="absolute -top-[5px] -right-[5px] w-[14px] h-[14px] bg-yellow-400 rounded-full border-2 border-white flex items-center justify-center text-[8px] text-white font-bold">
-                !
-              </span>
-            )}
           </div>
           <div>
             <div className="font-semibold text-[13px] text-gray-900">
               {booking.car.brand} {booking.car.model}
             </div>
             <div className="text-[11px] text-gray-400 mt-[2px]">
-              {booking.car.category} · {booking.car.seating_capacity} seats
-            </div>
-            <div className="text-[11px] text-gray-500 mt-[2px]">
-              👤 {booking.user?.name || booking.userName || "Customer"}
+              {booking.car.seating_capacity} seats · {booking.car.transmission} · {booking.car.year}
             </div>
           </div>
         </div>
@@ -51,15 +42,11 @@ const BookingRow = ({ booking, currency, onReview, onCancel, isLast }) => {
       {/* Return Date */}
       <td className="px-4 py-[14px] text-[12px] text-gray-700 whitespace-nowrap">
         <div className="font-medium">{fmt(booking.returnDate)}</div>
-        <span className="mt-1 inline-block bg-gray-100 rounded-full px-[7px] py-[1px] text-[10px] font-semibold text-gray-500">{days}d</span>
       </td>
       {/* Total */}
       <td className="px-4 py-[14px]">
         <div className="font-bold text-[14px] text-gray-900">
           {currency} {booking.price}
-        </div>
-        <div className="text-[11px] text-gray-400 mt-[2px]">
-          {currency} {(booking.price / days).toFixed(0)}/day
         </div>
       </td>
 
@@ -78,14 +65,14 @@ const BookingRow = ({ booking, currency, onReview, onCancel, isLast }) => {
         {isPending ? (
           <button
             onClick={() => onReview(booking)}
-            className="flex items-center gap-[5px] px-3 py-[6px] text-[11px] font-bold bg-indigo-500 text-white border-none rounded-lg cursor-pointer whitespace-nowrap hover:bg-indigo-600 transition-colors"
+            className="inline-flex h-8 w-24 items-center justify-center gap-[5px] px-3 text-[11px] font-semibold bg-transparent text-indigo-600 border border-indigo-300 rounded-lg cursor-pointer whitespace-nowrap hover:text-indigo-800 transition-colors"
           >
             <FiEye aria-hidden="true" className="h-3.5 w-3.5" /> Review
           </button>
         ) : isConfirmed ? (
           <button
             onClick={() => onCancel(booking.id)}
-            className="px-3 py-[6px] text-[11px] font-semibold bg-red-50 text-red-700 border border-red-300 rounded-lg cursor-pointer whitespace-nowrap hover:bg-red-100 transition-colors"
+            className="inline-flex h-8 w-24 items-center justify-center px-3 text-[11px] font-semibold bg-red-50 text-red-700 border border-red-300 rounded-lg cursor-pointer whitespace-nowrap hover:bg-red-100 transition-colors"
           >
             Cancel
           </button>
